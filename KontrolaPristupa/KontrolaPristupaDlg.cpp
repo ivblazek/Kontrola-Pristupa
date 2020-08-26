@@ -6,6 +6,8 @@
 #include "KontrolaPristupa.h"
 #include "KontrolaPristupaDlg.h"
 #include "afxdialogex.h"
+#include "Operator.h"
+#include "BlockedAccount.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -53,6 +55,7 @@ CKontrolaPristupaDlg::CKontrolaPristupaDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_KONTROLAPRISTUPA_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	strAppName.LoadString(IDS_APPNAME);
 }
 
 void CKontrolaPristupaDlg::DoDataExchange(CDataExchange* pDX)
@@ -64,6 +67,7 @@ BEGIN_MESSAGE_MAP(CKontrolaPristupaDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BLOGIN, &CKontrolaPristupaDlg::OnBnClickedBLogin)
 END_MESSAGE_MAP()
 
 
@@ -99,6 +103,22 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	
+	SetWindowText(strAppName);
+
+	CString strTextUsername;
+	strTextUsername.LoadString(IDS_USERNAME);
+	strTextUsername += ":";
+	GetDlgItem(IDC_TUSERNAME)->SetWindowText(strTextUsername);
+
+	CString strTextPassword;
+	strTextPassword.LoadString(IDS_PASSWORD);
+	strTextPassword += ":";
+	GetDlgItem(IDC_TPASSWORD)->SetWindowText(strTextPassword);
+
+	CString strButtonLogin;
+	strButtonLogin.LoadString(IDS_LOGIN);
+	GetDlgItem(IDC_BLOGIN)->SetWindowText(strButtonLogin);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -150,5 +170,75 @@ void CKontrolaPristupaDlg::OnPaint()
 HCURSOR CKontrolaPristupaDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+
+
+void CKontrolaPristupaDlg::OnBnClickedBLogin()
+{
+	CString strMessage;
+	CString strUsername;
+	GetDlgItem(IDC_EUSERNAME)->GetWindowTextW(strUsername);
+		
+	if (strUsername.IsEmpty())
+	{
+		strMessage.LoadString(IDS_NOOPERATOR);
+	}
+	else
+	{
+		COperator oper;
+		oper.m_strFilter.Format(_T("Username = '%s'"), strUsername);
+		oper.Open();
+
+		if (!oper.IsEOF())
+		{
+			CBlockedAccount blockAcc;
+			blockAcc.m_strFilter.Format(_T("OperatorID = '%d'"), oper.m_ID);
+			blockAcc.Open();
+
+			if (blockAcc.IsEOF() || blockAcc.m_PassAttempts < 3)
+			{
+				CString password;
+				GetDlgItem(IDC_EPASSWORD)->GetWindowTextW(password);
+				if (!password.Compare(oper.m_Password))
+				{
+					if (!blockAcc.IsEOF())
+						blockAcc.Delete();
+
+					//TODO: go to next window
+					EndDialog(0);
+					return;
+				}
+				else
+				{
+					strMessage.LoadString(IDS_WRONGPASSWORD);
+
+					if (!blockAcc.IsEOF())
+					{
+						blockAcc.Edit();
+						blockAcc.m_PassAttempts ++;
+						blockAcc.Update();
+					}
+					else
+					{
+						blockAcc.AddNew();
+						blockAcc.m_OperatorID = oper.m_ID;
+						blockAcc.m_PassAttempts = 1;
+						blockAcc.Update();
+					}
+				}				
+			}
+			else
+			{
+				strMessage.LoadString(IDS_BLOCKEDACC);
+			}
+		}
+		else
+		{
+			strMessage.LoadString(IDS_NOOPERATOR);
+		}
+
+		MessageBox(strMessage, strAppName, MB_OK);
+	}
 }
 

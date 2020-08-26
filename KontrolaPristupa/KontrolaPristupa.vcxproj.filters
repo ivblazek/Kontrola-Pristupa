@@ -48,6 +48,9 @@
     <ClInclude Include="DoorRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockedAccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KontrolaPristupa.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DoorRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockedAccount.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
