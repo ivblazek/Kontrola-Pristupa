@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "Operator.h"
 #include "BlockedAccount.h"
+#include "MenuDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -15,24 +16,6 @@
 
 
 // CAboutDlg dialog used for App About
-
-class CAboutDlg : public CDialogEx
-{
-public:
-	CAboutDlg();
-
-// Dialog Data
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ABOUTBOX };
-#endif
-
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
-// Implementation
-protected:
-	DECLARE_MESSAGE_MAP()
-};
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 {
@@ -106,19 +89,19 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 	
 	SetWindowText(strAppName);
 
-	CString strTextUsername;
-	strTextUsername.LoadString(IDS_USERNAME);
-	strTextUsername += ":";
-	GetDlgItem(IDC_TUSERNAME)->SetWindowText(strTextUsername);
+	CString strText;
+	strText.LoadString(IDS_USERNAME);
+	strText += ":";
+	GetDlgItem(IDC_TUSERNAME)->SetWindowText(strText);
 
-	CString strTextPassword;
-	strTextPassword.LoadString(IDS_PASSWORD);
-	strTextPassword += ":";
-	GetDlgItem(IDC_TPASSWORD)->SetWindowText(strTextPassword);
+	
+	strText.LoadString(IDS_PASSWORD);
+	strText += ":";
+	GetDlgItem(IDC_TPASSWORD)->SetWindowText(strText);
 
-	CString strButtonLogin;
-	strButtonLogin.LoadString(IDS_LOGIN);
-	GetDlgItem(IDC_BLOGIN)->SetWindowText(strButtonLogin);
+	
+	strText.LoadString(IDS_LOGIN);
+	GetDlgItem(IDC_BLOGIN)->SetWindowText(strText);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -204,9 +187,13 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 				{
 					if (!blockAcc.IsEOF())
 						blockAcc.Delete();
-
-					//TODO: go to next window
+					
+					oper.Close();
 					EndDialog(0);
+
+					CMenuDlg menuDlg;
+					menuDlg.DoModal();
+					
 					return;
 				}
 				else
@@ -239,6 +226,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 		}
 
 		MessageBox(strMessage, strAppName, MB_OK);
+		oper.Close();
 	}
 }
 

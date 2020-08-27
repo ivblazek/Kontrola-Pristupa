@@ -193,8 +193,10 @@
     <ClInclude Include="Door.h" />
     <ClInclude Include="DoorRule.h" />
     <ClInclude Include="DoorUser.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="KontrolaPristupa.h" />
     <ClInclude Include="KontrolaPristupaDlg.h" />
+    <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Operator.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -206,8 +208,10 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="DoorRule.cpp" />
     <ClCompile Include="DoorUser.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="KontrolaPristupa.cpp" />
     <ClCompile Include="KontrolaPristupaDlg.cpp" />
+    <ClCompile Include="MenuDlg.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
