@@ -8,6 +8,7 @@
 #include "KontrolaPristupaDlg.h"
 #include "Events.h"
 #include "AddUserDlg.h"
+#include "AddGroupDlg.h"
 
 // CMenuDlg dialog
 
@@ -39,6 +40,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BREFRESH, &CMenuDlg::OnBnClickedBrefresh)
 	ON_COMMAND(ID_LOGOUT, &CMenuDlg::OnLogout)
 	ON_COMMAND(ID_USER_ADDUSER, &CMenuDlg::OnAddUser)
+	ON_COMMAND(ID_GROUP_ADDGROUP, &CMenuDlg::OnGroupAddgroup)
 END_MESSAGE_MAP()
 
 
@@ -158,4 +160,10 @@ void CMenuDlg::OnBnClickedBrefresh()
 {
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+}
+
+void CMenuDlg::OnGroupAddgroup()
+{
+	CAddGroupDlg addGroupDlg;
+	addGroupDlg.DoModal();
 }

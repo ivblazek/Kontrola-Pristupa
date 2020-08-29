@@ -27,7 +27,8 @@ protected:
 public:
 	CString strAppName;
 	void CMenuDlg::PopulateListCtrl();
-	void CMenuDlg::OnLogout();
-	void CMenuDlg::OnAddUser();
 	afx_msg void OnBnClickedBrefresh();
+	afx_msg void OnLogout();
+	afx_msg void OnAddUser();
+	afx_msg void OnGroupAddgroup();
 };
