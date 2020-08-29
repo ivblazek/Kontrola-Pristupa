@@ -7,6 +7,7 @@
 #include "afxdialogex.h"
 #include "KontrolaPristupaDlg.h"
 #include "Events.h"
+#include "AddUserDlg.h"
 
 // CMenuDlg dialog
 
@@ -37,6 +38,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_BN_CLICKED(IDC_BREFRESH, &CMenuDlg::OnBnClickedBrefresh)
 	ON_COMMAND(ID_LOGOUT, &CMenuDlg::OnLogout)
+	ON_COMMAND(ID_USER_ADDUSER, &CMenuDlg::OnAddUser)
 END_MESSAGE_MAP()
 
 
@@ -75,20 +77,21 @@ BOOL CMenuDlg::OnInitDialog()
 	
 	lstCtrl.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 		
-	strLabel.LoadString(IDS_LDOORNAME);
+	strLabel.LoadString(IDS_DOORNAME);
 	lstCtrl.InsertColumn(0, strLabel, LVCFMT_LEFT, 180);
-	strLabel.LoadString(IDS_LDOOROPENED);
+	strLabel.LoadString(IDS_DOOROPENED);
 	lstCtrl.InsertColumn(1, strLabel, LVCFMT_LEFT, 100);
-	strLabel.LoadString(IDS_LNAME);
+	strLabel.LoadString(IDS_NAME);
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 100);
-	strLabel.LoadString(IDS_LSURNAME);
+	strLabel.LoadString(IDS_SURNAME);
 	lstCtrl.InsertColumn(3, strLabel, LVCFMT_LEFT, 100);
-	strLabel.LoadString(IDS_LGROUPNAME);
+	strLabel.LoadString(IDS_GROUPNAME);
 	lstCtrl.InsertColumn(4, strLabel, LVCFMT_LEFT, 100);
-	strLabel.LoadString(IDS_LDATETIME);
+	strLabel.LoadString(IDS_DATETIME);
 	lstCtrl.InsertColumn(5, strLabel, LVCFMT_LEFT, 160);
 	
 	PopulateListCtrl();
+
 
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
@@ -140,6 +143,12 @@ void CMenuDlg::OnLogout()
 
 	CKontrolaPristupaDlg loginDlg;
 	loginDlg.DoModal();
+}
+
+void CMenuDlg::OnAddUser()
+{
+	CAddUserDlg addUserDlg;
+	addUserDlg.DoModal();
 }
 
 
