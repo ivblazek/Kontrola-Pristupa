@@ -36,6 +36,7 @@ void CMenuDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_BN_CLICKED(IDC_BREFRESH, &CMenuDlg::OnBnClickedBrefresh)
+	ON_COMMAND(ID_LOGOUT, &CMenuDlg::OnLogout)
 END_MESSAGE_MAP()
 
 
@@ -131,6 +132,14 @@ void CMenuDlg::PopulateListCtrl()
 		events.MoveNext();
 	}
 	events.Close();
+}
+
+void CMenuDlg::OnLogout()
+{
+	EndDialog(0);
+
+	CKontrolaPristupaDlg loginDlg;
+	loginDlg.DoModal();
 }
 
 
