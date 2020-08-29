@@ -31,4 +31,5 @@ public:
 	afx_msg void OnLogout();
 	afx_msg void OnAddUser();
 	afx_msg void OnGroupAddgroup();
+	afx_msg void OnRuleAddrule();
 };

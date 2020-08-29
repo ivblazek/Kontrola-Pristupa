@@ -9,6 +9,7 @@
 #include "Events.h"
 #include "AddUserDlg.h"
 #include "AddGroupDlg.h"
+#include "AddRuleDlg.h"
 
 // CMenuDlg dialog
 
@@ -41,6 +42,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_LOGOUT, &CMenuDlg::OnLogout)
 	ON_COMMAND(ID_USER_ADDUSER, &CMenuDlg::OnAddUser)
 	ON_COMMAND(ID_GROUP_ADDGROUP, &CMenuDlg::OnGroupAddgroup)
+	ON_COMMAND(ID_RULE_ADDRULE, &CMenuDlg::OnRuleAddrule)
 END_MESSAGE_MAP()
 
 
@@ -79,7 +81,7 @@ BOOL CMenuDlg::OnInitDialog()
 	
 	lstCtrl.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 		
-	strLabel.LoadString(IDS_DOORNAME);
+	strLabel.LoadString(IDS_DOOR);
 	lstCtrl.InsertColumn(0, strLabel, LVCFMT_LEFT, 180);
 	strLabel.LoadString(IDS_DOOROPENED);
 	lstCtrl.InsertColumn(1, strLabel, LVCFMT_LEFT, 100);
@@ -166,4 +168,11 @@ void CMenuDlg::OnGroupAddgroup()
 {
 	CAddGroupDlg addGroupDlg;
 	addGroupDlg.DoModal();
+}
+
+
+void CMenuDlg::OnRuleAddrule()
+{
+	CAddRuleDlg addRuleDlg;
+	addRuleDlg.DoModal();
 }
