@@ -10,6 +10,7 @@
 #include "AddUserDlg.h"
 #include "AddGroupDlg.h"
 #include "AddRuleDlg.h"
+#include "AddOperatorDlg.h"
 
 // CMenuDlg dialog
 
@@ -43,6 +44,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_USER_ADDUSER, &CMenuDlg::OnAddUser)
 	ON_COMMAND(ID_GROUP_ADDGROUP, &CMenuDlg::OnGroupAddgroup)
 	ON_COMMAND(ID_RULE_ADDRULE, &CMenuDlg::OnRuleAddrule)
+	ON_COMMAND(ID_OPERATOR_ADDOPERATOR, &CMenuDlg::OnOperatorAddOperator)
 END_MESSAGE_MAP()
 
 
@@ -175,4 +177,11 @@ void CMenuDlg::OnRuleAddrule()
 {
 	CAddRuleDlg addRuleDlg;
 	addRuleDlg.DoModal();
+}
+
+
+void CMenuDlg::OnOperatorAddOperator()
+{
+	CAddOperatorDlg addOperatorDlg;
+	addOperatorDlg.DoModal();
 }

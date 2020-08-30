@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddGroupDlg.h" />
+    <ClInclude Include="AddOperatorDlg.h" />
     <ClInclude Include="AddRuleDlg.h" />
     <ClInclude Include="AddUserDlg.h" />
     <ClInclude Include="BlockedAccount.h" />
@@ -208,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddGroupDlg.cpp" />
+    <ClCompile Include="AddOperatorDlg.cpp" />
     <ClCompile Include="AddRuleDlg.cpp" />
     <ClCompile Include="AddUserDlg.cpp" />
     <ClCompile Include="BlockedAccount.cpp" />

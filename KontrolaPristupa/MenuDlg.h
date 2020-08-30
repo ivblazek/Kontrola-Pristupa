@@ -32,4 +32,5 @@ public:
 	afx_msg void OnAddUser();
 	afx_msg void OnGroupAddgroup();
 	afx_msg void OnRuleAddrule();
+	afx_msg void OnOperatorAddOperator();
 };
