@@ -33,4 +33,5 @@ public:
 	afx_msg void OnRuleAddrule();
 	afx_msg void OnOperatorAddOperator();
 	afx_msg void OnOperatorChangepassword();
+	afx_msg void OnDoorAddDoor();
 };

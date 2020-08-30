@@ -189,6 +189,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddDoorDlg.h" />
     <ClInclude Include="AddGroupDlg.h" />
     <ClInclude Include="AddOperatorDlg.h" />
     <ClInclude Include="AddRuleDlg.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="UserGroup.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddDoorDlg.cpp" />
     <ClCompile Include="AddGroupDlg.cpp" />
     <ClCompile Include="AddOperatorDlg.cpp" />
     <ClCompile Include="AddRuleDlg.cpp" />

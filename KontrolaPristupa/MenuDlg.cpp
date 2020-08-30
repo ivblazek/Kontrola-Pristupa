@@ -12,6 +12,7 @@
 #include "AddRuleDlg.h"
 #include "AddOperatorDlg.h"
 #include "ChangePassDlg.h"
+#include "AddDoorDlg.h"
 
 // CMenuDlg dialog
 
@@ -46,6 +47,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_RULE_ADDRULE, &CMenuDlg::OnRuleAddrule)
 	ON_COMMAND(ID_OPERATOR_ADDOPERATOR, &CMenuDlg::OnOperatorAddOperator)
 	ON_COMMAND(ID_OPERATOR_CHANGEPASSWORD, &CMenuDlg::OnOperatorChangepassword)
+	ON_COMMAND(ID_DOOR_ADDDOOR, &CMenuDlg::OnDoorAddDoor)
 END_MESSAGE_MAP()
 
 
@@ -192,4 +194,11 @@ void CMenuDlg::OnOperatorChangepassword()
 {
 	CChangePassDlg changePassDlg;
 	changePassDlg.DoModal();
+}
+
+
+void CMenuDlg::OnDoorAddDoor()
+{
+	CAddDoorDlg addDoorDlg;
+	addDoorDlg.DoModal();
 }

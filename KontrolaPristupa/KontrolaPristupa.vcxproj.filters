@@ -72,6 +72,9 @@
     <ClInclude Include="ChangePassDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AddDoorDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KontrolaPristupa.cpp">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ChangePassDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddDoorDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
