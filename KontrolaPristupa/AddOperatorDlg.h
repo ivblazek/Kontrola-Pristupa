@@ -21,7 +21,6 @@ protected:
 	virtual BOOL OnInitDialog();
 	DECLARE_MESSAGE_MAP()
 public:
-	CString strAppName;
 	CString m_Username;
 	CString m_Password1;
 	CString m_Password2;

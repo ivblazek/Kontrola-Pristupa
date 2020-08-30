@@ -20,7 +20,7 @@ CAddRuleDlg::CAddRuleDlg(CWnd* pParent /*=NULL*/)
 	, m_User(_T(""))
 	, m_Door(_T(""))
 {
-	strAppName.LoadString(IDS_APPNAME);
+
 }
 
 CAddRuleDlg::~CAddRuleDlg()
@@ -48,7 +48,7 @@ BOOL CAddRuleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 
 	CString strText;
 	strText.LoadString(IDS_USER);
@@ -92,7 +92,7 @@ void CAddRuleDlg::OnBnClickedBAddRule()
 	if (m_User.IsEmpty() || m_Door.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
 

@@ -23,7 +23,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	CString strAppName;
 	afx_msg void OnBnClickedBAddRule();
 	afx_msg void OnCbnSelchangeCUser();
 	CString m_User;

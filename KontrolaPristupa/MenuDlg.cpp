@@ -11,6 +11,7 @@
 #include "AddGroupDlg.h"
 #include "AddRuleDlg.h"
 #include "AddOperatorDlg.h"
+#include "ChangePassDlg.h"
 
 // CMenuDlg dialog
 
@@ -23,7 +24,6 @@ CMenuDlg::CMenuDlg(CWnd* pParent /*=NULL*/)
 	EnableActiveAccessibility();
 #endif
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	strAppName.LoadString(IDS_APPNAME);
 }
 
 CMenuDlg::~CMenuDlg()
@@ -45,6 +45,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_GROUP_ADDGROUP, &CMenuDlg::OnGroupAddgroup)
 	ON_COMMAND(ID_RULE_ADDRULE, &CMenuDlg::OnRuleAddrule)
 	ON_COMMAND(ID_OPERATOR_ADDOPERATOR, &CMenuDlg::OnOperatorAddOperator)
+	ON_COMMAND(ID_OPERATOR_CHANGEPASSWORD, &CMenuDlg::OnOperatorChangepassword)
 END_MESSAGE_MAP()
 
 
@@ -72,7 +73,7 @@ BOOL CMenuDlg::OnInitDialog()
 		}
 	}
 
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 	ModifyStyleEx(WS_EX_TOOLWINDOW, WS_EX_APPWINDOW);
 
 	CString strText;
@@ -184,4 +185,11 @@ void CMenuDlg::OnOperatorAddOperator()
 {
 	CAddOperatorDlg addOperatorDlg;
 	addOperatorDlg.DoModal();
+}
+
+
+void CMenuDlg::OnOperatorChangepassword()
+{
+	CChangePassDlg changePassDlg;
+	changePassDlg.DoModal();
 }

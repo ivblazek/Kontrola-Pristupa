@@ -194,6 +194,7 @@
     <ClInclude Include="AddRuleDlg.h" />
     <ClInclude Include="AddUserDlg.h" />
     <ClInclude Include="BlockedAccount.h" />
+    <ClInclude Include="ChangePassDlg.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="DoorRule.h" />
     <ClInclude Include="DoorUser.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="AddRuleDlg.cpp" />
     <ClCompile Include="AddUserDlg.cpp" />
     <ClCompile Include="BlockedAccount.cpp" />
+    <ClCompile Include="ChangePassDlg.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="DoorRule.cpp" />
     <ClCompile Include="DoorUser.cpp" />

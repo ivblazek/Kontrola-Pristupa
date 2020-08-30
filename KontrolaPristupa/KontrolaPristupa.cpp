@@ -23,12 +23,15 @@ END_MESSAGE_MAP()
 CKontrolaPristupaApp::CKontrolaPristupaApp()
 {
 	// support Restart Manager
-	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
+	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;	
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
+
+CString CKontrolaPristupaApp::strAppName;
+CString CKontrolaPristupaApp::activeUser;
 
 // The one and only CKontrolaPristupaApp object
 

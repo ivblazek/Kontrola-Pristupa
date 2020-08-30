@@ -20,7 +20,7 @@ CAddUserDlg::CAddUserDlg(CWnd* pParent /*=NULL*/)
 	, m_GroupName(_T(""))
 	, m_CardNo(_T(""))
 {
-	strAppName.LoadString(IDS_APPNAME);
+	
 }
 
 CAddUserDlg::~CAddUserDlg()
@@ -54,7 +54,7 @@ BOOL CAddUserDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 
 
 	CString strText;
@@ -100,14 +100,14 @@ void CAddUserDlg::OnBnClickedBadduser()
 	if (m_Name.IsEmpty() || m_Surname.IsEmpty() || m_GroupName.IsEmpty() || m_CardNo.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
 
 	if (m_CardNo.GetLength() < 8)
 	{
 		strMessage.LoadString(IDS_SHORTCARDNO);
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}		
 

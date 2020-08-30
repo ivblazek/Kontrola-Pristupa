@@ -17,7 +17,7 @@ CAddGroupDlg::CAddGroupDlg(CWnd* pParent /*=NULL*/)
 	, m_Name(_T(""))
 	, m_Description(_T(""))
 {
-	strAppName.LoadString(IDS_APPNAME);
+
 }
 
 CAddGroupDlg::~CAddGroupDlg()
@@ -42,7 +42,7 @@ BOOL CAddGroupDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 	
 	CString strText;
 	strText.LoadString(IDS_GROUPNAME);
@@ -74,7 +74,7 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 	if (m_Name.IsEmpty() )
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
 

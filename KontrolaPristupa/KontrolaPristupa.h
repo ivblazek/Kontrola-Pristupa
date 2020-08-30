@@ -19,6 +19,8 @@ class CKontrolaPristupaApp : public CWinApp
 {
 public:
 	CKontrolaPristupaApp();
+	static CString strAppName;
+	static CString activeUser;
 
 // Overrides
 public:

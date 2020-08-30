@@ -23,7 +23,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	CString strAppName;
 	CString m_Name;
 	CString m_Surname;
 	CString m_GroupName;

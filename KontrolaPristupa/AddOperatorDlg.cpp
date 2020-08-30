@@ -19,7 +19,7 @@ CAddOperatorDlg::CAddOperatorDlg(CWnd* pParent /*=NULL*/)
 	, m_Password2(_T(""))
 	, m_Admin(FALSE)
 {
-	strAppName.LoadString(IDS_APPNAME);
+	
 }
 
 CAddOperatorDlg::~CAddOperatorDlg()
@@ -47,7 +47,7 @@ BOOL CAddOperatorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 
 	CString strText;
 	strText.LoadString(IDS_USERNAME);
@@ -79,14 +79,14 @@ void CAddOperatorDlg::OnBnClickedBAddOper()
 	if (m_Username.IsEmpty() || m_Password1.IsEmpty() || m_Password2.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
 
 	if (m_Password1.Compare(m_Password2))
 	{
-		strMessage.LoadString(IDS_PASSMATCH);
-		MessageBox(strMessage, strAppName, MB_OK);
+		strMessage.LoadString(IDS_PASSMISSMATCH);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
 

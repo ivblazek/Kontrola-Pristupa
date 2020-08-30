@@ -38,7 +38,7 @@ CKontrolaPristupaDlg::CKontrolaPristupaDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_KONTROLAPRISTUPA_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	strAppName.LoadString(IDS_APPNAME);
+	CKontrolaPristupaApp::strAppName.LoadString(IDS_APPNAME);
 }
 
 void CKontrolaPristupaDlg::DoDataExchange(CDataExchange* pDX)
@@ -87,7 +87,7 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	
-	SetWindowText(strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName);
 
 	CString strText;
 	strText.LoadString(IDS_USERNAME);
@@ -185,6 +185,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 				GetDlgItem(IDC_EPASSWORD)->GetWindowTextW(password);
 				if (!password.Compare(oper.m_Password))
 				{
+					CKontrolaPristupaApp::activeUser = oper.m_Username;
 					if (!blockAcc.IsEOF())
 						blockAcc.Delete();
 					
@@ -225,7 +226,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 			strMessage.LoadString(IDS_NOOPERATOR);
 		}
 
-		MessageBox(strMessage, strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		oper.Close();
 	}
 }

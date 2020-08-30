@@ -25,7 +25,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	
 public:
-	CString strAppName;
 	void CMenuDlg::PopulateListCtrl();
 	afx_msg void OnBnClickedBrefresh();
 	afx_msg void OnLogout();
@@ -33,4 +32,5 @@ public:
 	afx_msg void OnGroupAddgroup();
 	afx_msg void OnRuleAddrule();
 	afx_msg void OnOperatorAddOperator();
+	afx_msg void OnOperatorChangepassword();
 };
