@@ -202,6 +202,7 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="KontrolaPristupa.h" />
     <ClInclude Include="KontrolaPristupaDlg.h" />
+    <ClInclude Include="ManageOperatorsDlg.h" />
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Operator.h" />
     <ClInclude Include="Resource.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="KontrolaPristupa.cpp" />
     <ClCompile Include="KontrolaPristupaDlg.cpp" />
+    <ClCompile Include="ManageOperatorsDlg.cpp" />
     <ClCompile Include="MenuDlg.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="stdafx.cpp">

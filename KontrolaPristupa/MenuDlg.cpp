@@ -13,6 +13,8 @@
 #include "AddOperatorDlg.h"
 #include "ChangePassDlg.h"
 #include "AddDoorDlg.h"
+#include "ManageOperatorsDlg.h"
+#include "Operator.h"
 
 // CMenuDlg dialog
 
@@ -48,6 +50,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_OPERATOR_ADDOPERATOR, &CMenuDlg::OnOperatorAddOperator)
 	ON_COMMAND(ID_OPERATOR_CHANGEPASSWORD, &CMenuDlg::OnOperatorChangepassword)
 	ON_COMMAND(ID_DOOR_ADDDOOR, &CMenuDlg::OnDoorAddDoor)
+	ON_COMMAND(ID_OPERATOR_MANAGE, &CMenuDlg::OnOperatorManage)
 END_MESSAGE_MAP()
 
 
@@ -201,4 +204,22 @@ void CMenuDlg::OnDoorAddDoor()
 {
 	CAddDoorDlg addDoorDlg;
 	addDoorDlg.DoModal();
+}
+
+
+void CMenuDlg::OnOperatorManage()
+{
+	COperator oper;
+	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::activeOperator);
+	oper.Open();
+	if (oper.m_IsAdmin == 0)
+	{
+		CString strText;
+		strText.LoadString(IDS_ADMINONLY);
+		MessageBox(strText, CKontrolaPristupaApp::strAppName, MB_OK);
+		return;
+	}
+		
+	CManageOperatorsDlg manageOperatorsDlg;
+	manageOperatorsDlg.DoModal();
 }

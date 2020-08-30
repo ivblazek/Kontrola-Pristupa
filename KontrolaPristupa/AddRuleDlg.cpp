@@ -65,12 +65,15 @@ BOOL CAddRuleDlg::OnInitDialog()
 
 	CDoorUser users;
 	users.Open();
+
 	CUserGroup groups;
-	groups.Open();
+	
 	while (!users.IsEOF())
 	{
 		groups.m_strFilter.Format(_T("ID = '%d'"), users.m_GroupID);
+		groups.Open();
 		strText.Format(_T("%d - %s %s, %s"), users.m_ID, users.m_Name, users.m_Surname, groups.m_Name);
+		groups.Close();
 		userComboBox.AddString(strText);
 		users.MoveNext();
 	}

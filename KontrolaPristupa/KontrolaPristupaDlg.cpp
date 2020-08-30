@@ -185,7 +185,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 				GetDlgItem(IDC_EPASSWORD)->GetWindowTextW(password);
 				if (!password.Compare(oper.m_Password))
 				{
-					CKontrolaPristupaApp::activeUser = oper.m_Username;
+					CKontrolaPristupaApp::activeOperator = oper.m_Username;
 					if (!blockAcc.IsEOF())
 						blockAcc.Delete();
 					

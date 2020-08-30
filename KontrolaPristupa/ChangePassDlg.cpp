@@ -86,7 +86,7 @@ void CChangePassDlg::OnBnClickedBchangepassword()
 	}
 
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::activeUser);
+	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::activeOperator);
 	oper.Open();
 
 	if (oper.m_Password.Compare(m_OldPassword))
