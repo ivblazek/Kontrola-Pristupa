@@ -230,4 +230,3 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 		oper.Close();
 	}
 }
-

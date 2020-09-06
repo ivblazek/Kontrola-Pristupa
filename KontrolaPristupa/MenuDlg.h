@@ -35,4 +35,9 @@ public:
 	afx_msg void OnOperatorChangepassword();
 	afx_msg void OnDoorAddDoor();
 	afx_msg void OnOperatorManage();
+	afx_msg void OnUserListUsers();
+	afx_msg void OnGroupListGroups();
+	afx_msg void OnRuleListRules();
+	afx_msg void OnDoorListDoors();
+	afx_msg void OnOperatorListOperators();
 };

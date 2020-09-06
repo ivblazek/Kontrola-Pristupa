@@ -15,6 +15,11 @@
 #include "AddDoorDlg.h"
 #include "ManageOperatorsDlg.h"
 #include "Operator.h"
+#include "ListUserDlg.h"
+#include "ListGroupDlg.h"
+#include "ListRuleDlg.h"
+#include "ListDoorDlg.h"
+#include "ListOperatorDlg.h"
 
 // CMenuDlg dialog
 
@@ -51,6 +56,11 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_OPERATOR_CHANGEPASSWORD, &CMenuDlg::OnOperatorChangepassword)
 	ON_COMMAND(ID_DOOR_ADDDOOR, &CMenuDlg::OnDoorAddDoor)
 	ON_COMMAND(ID_OPERATOR_MANAGE, &CMenuDlg::OnOperatorManage)
+	ON_COMMAND(ID_USER_LISTUSERS, &CMenuDlg::OnUserListUsers)
+	ON_COMMAND(ID_GROUP_LISTGROUPS, &CMenuDlg::OnGroupListGroups)
+	ON_COMMAND(ID_RULE_LISTRULES, &CMenuDlg::OnRuleListRules)
+	ON_COMMAND(ID_DOOR_LISTDOORS, &CMenuDlg::OnDoorListDoors)
+	ON_COMMAND(ID_OPERATOR_LISTOPERATORS, &CMenuDlg::OnOperatorListOperators)
 END_MESSAGE_MAP()
 
 
@@ -126,27 +136,27 @@ void CMenuDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CMenuDlg::PopulateListCtrl()
 {
-	CEvents events;
-	events.Open();
+	CEvents users;
+	users.Open();
 
 	int itemNo;
 	CString strItem;
 
-	while (!events.IsEOF())
+	while (!users.IsEOF())
 	{
-		itemNo = lstCtrl.InsertItem(0, events.m_DoorName);
-		if (events.m_DoorOpened == 1)
+		itemNo = lstCtrl.InsertItem(0, users.m_DoorName);
+		if (users.m_DoorOpened == 1)
 			strItem = "Opened";
 		else
 			strItem = "Not Opened";
 		lstCtrl.SetItemText(itemNo, 1, strItem);
-		lstCtrl.SetItemText(itemNo, 2, events.m_UserName);
-		lstCtrl.SetItemText(itemNo, 3, events.m_Surname);
-		lstCtrl.SetItemText(itemNo, 4, events.m_GroupName);
-		lstCtrl.SetItemText(itemNo, 5, events.m_DateTime.Format(_T("%d.%m.%Y. - %T")));
-		events.MoveNext();
+		lstCtrl.SetItemText(itemNo, 2, users.m_UserName);
+		lstCtrl.SetItemText(itemNo, 3, users.m_Surname);
+		lstCtrl.SetItemText(itemNo, 4, users.m_GroupName);
+		lstCtrl.SetItemText(itemNo, 5, users.m_DateTime.Format(_T("%d.%m.%Y. - %T")));
+		users.MoveNext();
 	}
-	events.Close();
+	users.Close();
 }
 
 void CMenuDlg::OnLogout()
@@ -222,4 +232,39 @@ void CMenuDlg::OnOperatorManage()
 		
 	CManageOperatorsDlg manageOperatorsDlg;
 	manageOperatorsDlg.DoModal();
+}
+
+
+void CMenuDlg::OnUserListUsers()
+{
+	CListUserDlg listUserDlg;
+	listUserDlg.DoModal();
+}
+
+
+void CMenuDlg::OnGroupListGroups()
+{
+	CListGroupDlg listGroupDlg;
+	listGroupDlg.DoModal();
+}
+
+
+void CMenuDlg::OnRuleListRules()
+{
+	CListRuleDlg listRuleDlg;
+	listRuleDlg.DoModal();
+}
+
+
+void CMenuDlg::OnDoorListDoors()
+{
+	CListDoorDlg listDoorDlg;
+	listDoorDlg.DoModal();
+}
+
+
+void CMenuDlg::OnOperatorListOperators()
+{
+	CListOperatorDlg listOperatorDlg;
+	listOperatorDlg.DoModal();
 }
