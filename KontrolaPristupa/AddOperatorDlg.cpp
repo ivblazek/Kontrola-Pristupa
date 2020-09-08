@@ -64,6 +64,17 @@ BOOL CAddOperatorDlg::OnInitDialog()
 
 	strText.LoadString(IDS_ADDOPERATOR);
 	GetDlgItem(IDC_BADDOPER)->SetWindowText(strText);
+
+	COperator oper;
+	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::activeOperator);
+	oper.Open();
+
+	if (oper.m_IsAdmin == 1)
+	{
+		strText.LoadString(IDS_REMOVEADMIN);
+		GetDlgItem(IDC_ADMIN)->EnableWindow(1);
+	}
+	oper.Close();
 		
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
