@@ -200,6 +200,7 @@
     <ClInclude Include="DoorRule.h" />
     <ClInclude Include="DoorUser.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="FilterDlg.h" />
     <ClInclude Include="KontrolaPristupa.h" />
     <ClInclude Include="KontrolaPristupaDlg.h" />
     <ClInclude Include="ListDoorDlg.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="DoorRule.cpp" />
     <ClCompile Include="DoorUser.cpp" />
     <ClCompile Include="Events.cpp" />
+    <ClCompile Include="FilterDlg.cpp" />
     <ClCompile Include="KontrolaPristupa.cpp" />
     <ClCompile Include="KontrolaPristupaDlg.cpp" />
     <ClCompile Include="ListDoorDlg.cpp" />

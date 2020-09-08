@@ -26,6 +26,7 @@ protected:
 	
 public:
 	void CMenuDlg::PopulateListCtrl();
+	static CString eventFilter;
 	afx_msg void OnBnClickedBrefresh();
 	afx_msg void OnLogout();
 	afx_msg void OnAddUser();
@@ -40,4 +41,6 @@ public:
 	afx_msg void OnRuleListRules();
 	afx_msg void OnDoorListDoors();
 	afx_msg void OnOperatorListOperators();
+	afx_msg void OnFilter();
+	afx_msg void OnBnClickedBFilterOff();
 };

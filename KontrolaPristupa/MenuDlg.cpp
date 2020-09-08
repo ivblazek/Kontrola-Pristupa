@@ -20,6 +20,7 @@
 #include "ListRuleDlg.h"
 #include "ListDoorDlg.h"
 #include "ListOperatorDlg.h"
+#include "FilterDlg.h"
 
 // CMenuDlg dialog
 
@@ -37,6 +38,8 @@ CMenuDlg::CMenuDlg(CWnd* pParent /*=NULL*/)
 CMenuDlg::~CMenuDlg()
 {
 }
+
+CString CMenuDlg::eventFilter = _T("1 = 1");
 
 void CMenuDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -61,6 +64,8 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_RULE_LISTRULES, &CMenuDlg::OnRuleListRules)
 	ON_COMMAND(ID_DOOR_LISTDOORS, &CMenuDlg::OnDoorListDoors)
 	ON_COMMAND(ID_OPERATOR_LISTOPERATORS, &CMenuDlg::OnOperatorListOperators)
+	ON_COMMAND(ID_FILTER, &CMenuDlg::OnFilter)
+	ON_BN_CLICKED(IDC_BFILTEROFF, &CMenuDlg::OnBnClickedBFilterOff)
 END_MESSAGE_MAP()
 
 
@@ -94,6 +99,9 @@ BOOL CMenuDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_REFRESH);
 	GetDlgItem(IDC_BREFRESH)->SetWindowText(strText);
+
+	strText.LoadString(IDS_FILTEROFF);
+	GetDlgItem(IDC_BFILTEROFF)->SetWindowText(strText);
 	
 	CString strLabel;
 	
@@ -101,7 +109,7 @@ BOOL CMenuDlg::OnInitDialog()
 		
 	strLabel.LoadString(IDS_DOOR);
 	lstCtrl.InsertColumn(0, strLabel, LVCFMT_LEFT, 180);
-	strLabel.LoadString(IDS_DOOROPENED);
+	strLabel.LoadString(IDS_STATUS);
 	lstCtrl.InsertColumn(1, strLabel, LVCFMT_LEFT, 100);
 	strLabel.LoadString(IDS_NAME);
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 100);
@@ -136,28 +144,38 @@ void CMenuDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CMenuDlg::PopulateListCtrl()
 {
-	CEvents users;
-	users.Open();
+	CEvents events;
+	events.m_strFilter.Format(_T("%s"), eventFilter);
+	events.Open();
 
 	int itemNo;
 	CString strItem;
 
-	while (!users.IsEOF())
+	while (!events.IsEOF())
 	{
-		itemNo = lstCtrl.InsertItem(0, users.m_DoorName);
-		if (users.m_DoorOpened == 1)
+		itemNo = lstCtrl.InsertItem(0, events.m_DoorName);
+		if (events.m_DoorOpened == 1)
 			strItem = "Opened";
 		else
 			strItem = "Not Opened";
 		lstCtrl.SetItemText(itemNo, 1, strItem);
-		lstCtrl.SetItemText(itemNo, 2, users.m_UserName);
-		lstCtrl.SetItemText(itemNo, 3, users.m_Surname);
-		lstCtrl.SetItemText(itemNo, 4, users.m_GroupName);
-		lstCtrl.SetItemText(itemNo, 5, users.m_DateTime.Format(_T("%d.%m.%Y. - %T")));
-		users.MoveNext();
+		lstCtrl.SetItemText(itemNo, 2, events.m_UserName);
+		lstCtrl.SetItemText(itemNo, 3, events.m_Surname);
+		lstCtrl.SetItemText(itemNo, 4, events.m_GroupName);
+		lstCtrl.SetItemText(itemNo, 5, events.m_DateTime.Format(_T("%d.%m.%Y. - %T")));
+		events.MoveNext();
 	}
-	users.Close();
+	events.Close();
+
+	if (eventFilter.Compare(_T("1 = 1")))
+	{
+		GetDlgItem(IDC_BFILTEROFF)->ShowWindow(SW_SHOW);
+	}
 }
+
+
+// CMenuDlg message handlers
+
 
 void CMenuDlg::OnLogout()
 {
@@ -167,6 +185,7 @@ void CMenuDlg::OnLogout()
 	loginDlg.DoModal();
 }
 
+
 void CMenuDlg::OnAddUser()
 {
 	CAddUserDlg addUserDlg;
@@ -174,13 +193,12 @@ void CMenuDlg::OnAddUser()
 }
 
 
-// CMenuDlg message handlers
-
 void CMenuDlg::OnBnClickedBrefresh()
 {
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
 }
+
 
 void CMenuDlg::OnGroupAddgroup()
 {
@@ -267,4 +285,23 @@ void CMenuDlg::OnOperatorListOperators()
 {
 	CListOperatorDlg listOperatorDlg;
 	listOperatorDlg.DoModal();
+}
+
+
+void CMenuDlg::OnFilter()
+{
+	CFilterDlg filterDlg;
+	filterDlg.DoModal();
+
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
+}
+
+
+void CMenuDlg::OnBnClickedBFilterOff()
+{
+	eventFilter = "1 = 1";
+	GetDlgItem(IDC_BFILTEROFF)->ShowWindow(SW_HIDE);
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
 }
