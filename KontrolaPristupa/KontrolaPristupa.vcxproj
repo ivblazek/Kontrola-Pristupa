@@ -206,7 +206,9 @@
     <ClInclude Include="ListDoorDlg.h" />
     <ClInclude Include="ListGroupDlg.h" />
     <ClInclude Include="ListOperatorDlg.h" />
+    <ClInclude Include="ListRule.h" />
     <ClInclude Include="ListRuleDlg.h" />
+    <ClInclude Include="ListUser.h" />
     <ClInclude Include="ListUserDlg.h" />
     <ClInclude Include="ManageOperatorsDlg.h" />
     <ClInclude Include="MenuDlg.h" />
@@ -234,7 +236,9 @@
     <ClCompile Include="ListDoorDlg.cpp" />
     <ClCompile Include="ListGroupDlg.cpp" />
     <ClCompile Include="ListOperatorDlg.cpp" />
+    <ClCompile Include="ListRule.cpp" />
     <ClCompile Include="ListRuleDlg.cpp" />
+    <ClCompile Include="ListUser.cpp" />
     <ClCompile Include="ListUserDlg.cpp" />
     <ClCompile Include="ManageOperatorsDlg.cpp" />
     <ClCompile Include="MenuDlg.cpp" />

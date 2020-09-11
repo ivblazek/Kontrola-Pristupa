@@ -5,9 +5,7 @@
 #include "KontrolaPristupa.h"
 #include "ListRuleDlg.h"
 #include "afxdialogex.h"
-#include "DoorRule.h"
-#include "Door.h"
-#include "DoorUser.h"
+#include "ListRule.h"
 
 
 // CListRuleDlg dialog
@@ -32,6 +30,7 @@ void CListRuleDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CListRuleDlg, CDialogEx)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListRuleDlg::OnLvnColumnClickEvents)
 END_MESSAGE_MAP()
 
 BOOL CListRuleDlg::OnInitDialog()
@@ -56,40 +55,109 @@ BOOL CListRuleDlg::OnInitDialog()
 	strLabel.LoadString(IDS_SURNAME);
 	lstCtrl.InsertColumn(4, strLabel, LVCFMT_LEFT, 100);
 
-	CDoorRule rules;
-	rules.Open();
-
-	int itemNo;
-	CString strItem;
-	CDoor doors;
-	CDoorUser users;
-
-	while (!rules.IsEOF())
-	{
-		doors.m_strFilter.Format(_T("ID = '%d'"), rules.m_DoorID);
-		users.m_strFilter.Format(_T("ID = '%d'"), rules.m_UserID);
-		doors.Open();
-		users.Open();
-
-		strItem.Format(_T("%d"), rules.m_DoorID);
-		
-		itemNo = lstCtrl.InsertItem(0, strItem);
-		lstCtrl.SetItemText(itemNo, 1, doors.m_Name);
-
-		strItem.Format(_T("%d"), rules.m_UserID);
-
-		lstCtrl.SetItemText(itemNo, 2, strItem);
-		lstCtrl.SetItemText(itemNo, 3, users.m_Name);
-		lstCtrl.SetItemText(itemNo, 4, users.m_Surname);
-
-		doors.Close();
-		users.Close();
-		rules.MoveNext();
-	}
-
-	rules.Close();
+	sortData = "[DoorID] DESC, [UserID] DESC";
+	PopulateListCtrl();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
+
+void CListRuleDlg::PopulateListCtrl()
+{
+	CListRule rules;
+	rules.m_strSort.Format(_T("%s"), sortData);
+	rules.Open();
+
+	int itemNo;
+	CString strItem;
+
+	while (!rules.IsEOF())
+	{
+		strItem.Format(_T("%d"), rules.m_DoorID);
+		itemNo = lstCtrl.InsertItem(0, strItem);
+		lstCtrl.SetItemText(itemNo, 1, rules.m_DoorName);
+
+		strItem.Format(_T("%d"), rules.m_UserID);
+		lstCtrl.SetItemText(itemNo, 2, strItem);
+		lstCtrl.SetItemText(itemNo, 3, rules.m_Name);
+		lstCtrl.SetItemText(itemNo, 4, rules.m_Surname);
+
+		rules.MoveNext();
+	}
+
+	rules.Close();
+}
+
+void CListRuleDlg::DoorIdSort()
+{
+	if (sortData.Compare(_T("[DoorID] DESC, [UserID] DESC")))
+		sortData = "[DoorID] DESC, [UserID] DESC";
+	else
+		sortData = "[DoorID] ASC, [UserID] DESC";
+}
+
+void CListRuleDlg::DoorNameSort()
+{
+	if (sortData.Compare(_T("[DoorName] DESC, [UserID] DESC")))
+		sortData = "[DoorName] DESC, [UserID] DESC";
+	else
+		sortData = "[DoorName] ASC, [UserID] DESC";
+}
+
+void CListRuleDlg::UserIdSort()
+{
+	if (sortData.Compare(_T("[UserID] DESC, [DoorID] DESC")))
+		sortData = "[UserID] DESC, [DoorID] DESC";
+	else
+		sortData = "[UserID] ASC, [DoorID] DESC";
+}
+
+void CListRuleDlg::UsernameSort()
+{
+	if (sortData.Compare(_T("[Name] DESC, [Surname] DESC")))
+		sortData = "[Name] DESC, [Surname] DESC";
+	else
+		sortData = "[Name] ASC, [Surname] ASC";
+}
+
+void CListRuleDlg::SurnameSort()
+{
+	if (sortData.Compare(_T("[Surname] DESC, [Name] DESC")))
+		sortData = "[Surname] DESC, [Name] DESC";
+	else
+		sortData = "[Surname] ASC, [Name] ASC";
+}
+
 // CListRuleDlg message handlers
+
+
+void CListRuleDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	
+	switch (pNMLV->iSubItem)
+	{
+	case 0:
+		DoorIdSort();
+		break;
+	case 1:
+		DoorNameSort();
+		break;
+	case 2:
+		UserIdSort();
+		break;
+	case 3:
+		UsernameSort();
+		break;
+	case 4:
+		SurnameSort();
+		break;
+	default:
+		break;
+	}
+
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
+
+	*pResult = 0;
+}

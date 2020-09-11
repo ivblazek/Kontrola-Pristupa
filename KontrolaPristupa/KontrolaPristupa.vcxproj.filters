@@ -96,6 +96,12 @@
     <ClInclude Include="Events.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ListUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KontrolaPristupa.cpp">
@@ -168,6 +174,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FilterDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListRule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

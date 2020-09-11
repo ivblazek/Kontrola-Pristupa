@@ -23,4 +23,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl lstCtrl;
+	CString sortData;
+	void CListDoorDlg::PopulateListCtrl();
+	void CListDoorDlg::IdSort();
+	void CListDoorDlg::UsernameSort();
+	void CListDoorDlg::RoleSort();
+	void CListDoorDlg::IpSort();
+	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
 };

@@ -25,8 +25,15 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	
 public:
-	void CMenuDlg::PopulateListCtrl();
 	static CString eventFilter;
+	CString sortData;
+	void CMenuDlg::PopulateListCtrl();
+	void CMenuDlg::DoorSort();
+	void CMenuDlg::StatusSort();
+	void CMenuDlg::UsernameSort();
+	void CMenuDlg::SurnameSort();
+	void CMenuDlg::GroupSort();
+	void CMenuDlg::DatetimeSort();
 	afx_msg void OnBnClickedBrefresh();
 	afx_msg void OnLogout();
 	afx_msg void OnAddUser();
@@ -43,4 +50,5 @@ public:
 	afx_msg void OnOperatorListOperators();
 	afx_msg void OnFilter();
 	afx_msg void OnBnClickedBFilterOff();
+	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
 };

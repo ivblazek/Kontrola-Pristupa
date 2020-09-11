@@ -30,6 +30,7 @@ void CListGroupDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CListGroupDlg, CDialogEx)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListGroupDlg::OnLvnColumnClickEvents)
 END_MESSAGE_MAP()
 
 BOOL CListGroupDlg::OnInitDialog()
@@ -50,12 +51,22 @@ BOOL CListGroupDlg::OnInitDialog()
 	strLabel.LoadString(IDS_DESCRIPTION);
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 300);
 
+	sortData = "[ID] DESC";
+	PopulateListCtrl();
+
+	return TRUE;  // return TRUE  unless you set the focus to a control
+}
+
+
+void CListGroupDlg::PopulateListCtrl()
+{
 	CUserGroup groups;
+	groups.m_strSort.Format(_T("%s"), sortData);
 	groups.Open();
-	
+
 	int itemNo;
 	CString strItem;
-	
+
 	while (!groups.IsEOF())
 	{
 		strItem.Format(_T("%d"), groups.m_ID);
@@ -63,13 +74,61 @@ BOOL CListGroupDlg::OnInitDialog()
 		itemNo = lstCtrl.InsertItem(0, strItem);
 		lstCtrl.SetItemText(itemNo, 1, groups.m_Name);
 		lstCtrl.SetItemText(itemNo, 2, groups.m_Description);
-		
+
 		groups.MoveNext();
 	}
 
 	groups.Close();
+}
 
-	return TRUE;  // return TRUE  unless you set the focus to a control
+void CListGroupDlg::IdSort()
+{
+	if (sortData.Compare(_T("[ID] DESC")))
+		sortData = "[ID] DESC";
+	else
+		sortData = "[ID] ASC";
+}
+
+void CListGroupDlg::UsernameSort()
+{
+	if (sortData.Compare(_T("[Name] DESC")))
+		sortData = "[Name] DESC";
+	else
+		sortData = "[Name] ASC";
+}
+
+void CListGroupDlg::RoleSort()
+{
+	if (sortData.Compare(_T("[Description] DESC")))
+		sortData = "[Description] DESC";
+	else
+		sortData = "[Description] ASC";
 }
 
 // CListGroupDlg message handlers
+
+
+void CListGroupDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	
+	switch (pNMLV->iSubItem)
+	{
+	case 0:
+		IdSort();
+		break;
+	case 1:
+		UsernameSort();
+		break;
+	case 2:
+		RoleSort();
+		break;
+	default:
+		break;
+	}
+
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
+
+	*pResult = 0;
+}

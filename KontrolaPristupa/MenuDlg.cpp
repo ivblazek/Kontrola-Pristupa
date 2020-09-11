@@ -66,6 +66,7 @@ BEGIN_MESSAGE_MAP(CMenuDlg, CDialogEx)
 	ON_COMMAND(ID_OPERATOR_LISTOPERATORS, &CMenuDlg::OnOperatorListOperators)
 	ON_COMMAND(ID_FILTER, &CMenuDlg::OnFilter)
 	ON_BN_CLICKED(IDC_BFILTEROFF, &CMenuDlg::OnBnClickedBFilterOff)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CMenuDlg::OnLvnColumnClickEvents)
 END_MESSAGE_MAP()
 
 
@@ -146,6 +147,7 @@ void CMenuDlg::PopulateListCtrl()
 {
 	CEvents events;
 	events.m_strFilter.Format(_T("%s"), eventFilter);
+	events.m_strSort.Format(_T("%s"), sortData);
 	events.Open();
 
 	int itemNo;
@@ -173,6 +175,53 @@ void CMenuDlg::PopulateListCtrl()
 	}
 }
 
+void CMenuDlg::DoorSort()
+{
+	if (sortData.Compare(_T("[Door Name] DESC, [DateTime] ASC")))
+		sortData = "[Door Name] DESC, [DateTime] ASC";
+	else
+		sortData = "[Door Name] ASC, [DateTime] ASC";
+}
+
+void CMenuDlg::StatusSort()
+{
+	if (sortData.Compare(_T("[Door Opened] ASC, [DateTime] ASC")))
+		sortData = "[Door Opened] ASC, [DateTime] ASC";
+	else
+		sortData = "[Door Opened] DESC, [DateTime] ASC";
+}
+
+void CMenuDlg::UsernameSort()
+{
+	if (sortData.Compare(_T("[User Name] DESC, [Surname] DESC, [DateTime] ASC")))
+		sortData = "[User Name] DESC, [Surname] DESC, [DateTime] ASC";
+	else
+		sortData = "[User Name] ASC, [Surname] ASC, [DateTime] ASC";
+}
+
+void CMenuDlg::SurnameSort()
+{
+	if (sortData.Compare(_T("[Surname] DESC, [User Name] DESC, [DateTime] ASC")))
+		sortData = "[Surname] DESC, [User Name] DESC, [DateTime] ASC";
+	else
+		sortData = "[Surname] ASC, [User Name] ASC, [DateTime] ASC";
+}
+
+void CMenuDlg::GroupSort()
+{
+	if (sortData.Compare(_T("[Group Name] DESC, [DateTime] ASC")))
+		sortData = "[Group Name] DESC, [DateTime] ASC";
+	else
+		sortData = "[Group Name] ASC, [DateTime] ASC";
+}
+
+void CMenuDlg::DatetimeSort()
+{
+	if (sortData.Compare(_T("[DateTime] ASC")))
+		sortData = "[DateTime] ASC";
+	else
+		sortData = "[DateTime] DESC";
+}
 
 // CMenuDlg message handlers
 
@@ -196,6 +245,7 @@ void CMenuDlg::OnAddUser()
 void CMenuDlg::OnBnClickedBrefresh()
 {
 	lstCtrl.DeleteAllItems();
+	sortData = "";
 	PopulateListCtrl();
 }
 
@@ -304,4 +354,39 @@ void CMenuDlg::OnBnClickedBFilterOff()
 	GetDlgItem(IDC_BFILTEROFF)->ShowWindow(SW_HIDE);
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+}
+
+
+void CMenuDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	switch (pNMLV->iSubItem) 
+	{
+		case 0:
+			DoorSort();
+			break;
+		case 1:
+			StatusSort();
+			break;
+		case 2:
+			UsernameSort();
+			break;
+		case 3:
+			SurnameSort();
+			break;
+		case 4:
+			GroupSort();
+			break;
+		case 5:
+			DatetimeSort();
+			break;
+		default:
+			break;
+	}
+
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
+
+	*pResult = 0;
 }

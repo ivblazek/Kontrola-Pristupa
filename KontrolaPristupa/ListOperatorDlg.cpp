@@ -29,6 +29,7 @@ void CListOperatorDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CListOperatorDlg, CDialogEx)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListOperatorDlg::OnLvnColumnClickEvents)
 END_MESSAGE_MAP()
 
 BOOL CListOperatorDlg::OnInitDialog()
@@ -49,8 +50,17 @@ BOOL CListOperatorDlg::OnInitDialog()
 	strLabel.LoadString(IDS_ROLE);
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 100);
 
+	sortData = "[ID] DESC";
+	PopulateListCtrl();
 
+	return TRUE;  // return TRUE  unless you set the focus to a control
+}
+
+
+void CListOperatorDlg::PopulateListCtrl()
+{
 	COperator opers;
+	opers.m_strSort.Format(_T("%s"), sortData);
 	opers.Open();
 
 	int itemNo;
@@ -72,8 +82,56 @@ BOOL CListOperatorDlg::OnInitDialog()
 	}
 
 	opers.Close();
+}
 
-	return TRUE;  // return TRUE  unless you set the focus to a control
+void CListOperatorDlg::IdSort()
+{
+	if (sortData.Compare(_T("[ID] DESC")))
+		sortData = "[ID] DESC";
+	else
+		sortData = "[ID] ASC";
+}
+
+void CListOperatorDlg::UsernameSort()
+{
+	if (sortData.Compare(_T("[Username] DESC")))
+		sortData = "[Username] DESC";
+	else
+		sortData = "[Username] ASC";
+}
+
+void CListOperatorDlg::RoleSort()
+{
+	if (sortData.Compare(_T("[IsAdmin] DESC")))
+		sortData = "[IsAdmin] DESC";
+	else
+		sortData = "[IsAdmin] ASC";
 }
 
 // CListOperatorDlg message handlers
+
+
+void CListOperatorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	switch (pNMLV->iSubItem)
+	{
+	case 0:
+		IdSort();
+		break;
+	case 1:
+		UsernameSort();
+		break;
+	case 2:
+		RoleSort();
+		break;
+	default:
+		break;
+	}
+
+	lstCtrl.DeleteAllItems();
+	PopulateListCtrl();
+
+	*pResult = 0;
+}
