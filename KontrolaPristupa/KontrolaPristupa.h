@@ -21,6 +21,7 @@ public:
 	CKontrolaPristupaApp();
 	static CString strAppName;
 	static CString activeOperator;
+	static BOOL adminUser;
 
 // Overrides
 public:

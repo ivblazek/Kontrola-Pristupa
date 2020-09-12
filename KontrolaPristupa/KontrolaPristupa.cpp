@@ -32,6 +32,7 @@ CKontrolaPristupaApp::CKontrolaPristupaApp()
 
 CString CKontrolaPristupaApp::strAppName;
 CString CKontrolaPristupaApp::activeOperator;
+BOOL CKontrolaPristupaApp::adminUser;
 
 // The one and only CKontrolaPristupaApp object
 

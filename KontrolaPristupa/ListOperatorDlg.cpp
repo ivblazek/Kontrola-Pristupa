@@ -6,6 +6,7 @@
 #include "ListOperatorDlg.h"
 #include "afxdialogex.h"
 #include "Operator.h"
+#include "ManageOperatorsDlg.h"
 
 // CListOperatorDlg dialog
 
@@ -30,6 +31,7 @@ void CListOperatorDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CListOperatorDlg, CDialogEx)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListOperatorDlg::OnLvnColumnClickEvents)
+	ON_NOTIFY(NM_DBLCLK, IDC_EVENTS, &CListOperatorDlg::OnNMDblclkEvents)
 END_MESSAGE_MAP()
 
 BOOL CListOperatorDlg::OnInitDialog()
@@ -74,11 +76,14 @@ void CListOperatorDlg::PopulateListCtrl()
 
 		itemNo = lstCtrl.InsertItem(0, strItem);
 		lstCtrl.SetItemText(itemNo, 1, opers.m_Username);
-		if (opers.m_IsAdmin == 1)
-			strItem = "Admin";
-		else
-			strItem = "User";
-		lstCtrl.SetItemText(itemNo, 2, strItem);
+		if (CKontrolaPristupaApp::adminUser)
+		{
+			if (opers.m_IsAdmin == 1)
+				strItem = "Admin";
+			else
+				strItem = "User";
+			lstCtrl.SetItemText(itemNo, 2, strItem);
+		}
 
 		opers.MoveNext();
 	}
@@ -134,6 +139,25 @@ void CListOperatorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+
+	*pResult = 0;
+}
+
+
+void CListOperatorDlg::OnNMDblclkEvents(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+
+	if (CKontrolaPristupaApp::adminUser)
+	{
+		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		{
+			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+			CManageOperatorsDlg manageOperatorsDlg;
+			manageOperatorsDlg.selectedID = _wtol(selectedID);
+			manageOperatorsDlg.DoModal();
+		}		
+	}
 
 	*pResult = 0;
 }

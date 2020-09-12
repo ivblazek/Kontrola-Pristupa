@@ -58,7 +58,6 @@ BEGIN_MESSAGE_MAP(CMainDlg, CDialogEx)
 	ON_COMMAND(ID_OPERATOR_ADDOPERATOR, &CMainDlg::OnOperatorAddOperator)
 	ON_COMMAND(ID_OPERATOR_CHANGEPASSWORD, &CMainDlg::OnOperatorChangepassword)
 	ON_COMMAND(ID_DOOR_ADDDOOR, &CMainDlg::OnDoorAddDoor)
-	ON_COMMAND(ID_OPERATOR_MANAGE, &CMainDlg::OnOperatorManage)
 	ON_COMMAND(ID_USER_LISTUSERS, &CMainDlg::OnUserListUsers)
 	ON_COMMAND(ID_GROUP_LISTGROUPS, &CMainDlg::OnGroupListGroups)
 	ON_COMMAND(ID_RULE_LISTRULES, &CMainDlg::OnRuleListRules)
@@ -283,24 +282,6 @@ void CMainDlg::OnDoorAddDoor()
 {
 	CAddDoorDlg addDoorDlg;
 	addDoorDlg.DoModal();
-}
-
-
-void CMainDlg::OnOperatorManage()
-{
-	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::activeOperator);
-	oper.Open();
-	if (oper.m_IsAdmin == 0)
-	{
-		CString strText;
-		strText.LoadString(IDS_ADMINONLY);
-		MessageBox(strText, CKontrolaPristupaApp::strAppName, MB_OK);
-		return;
-	}
-		
-	CManageOperatorsDlg manageOperatorsDlg;
-	manageOperatorsDlg.DoModal();
 }
 
 

@@ -17,7 +17,7 @@ CManageOperatorsDlg::CManageOperatorsDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_MANAGEOPER, pParent)
 	, m_Operator(_T(""))
 {
-
+	
 }
 
 CManageOperatorsDlg::~CManageOperatorsDlg()
@@ -46,9 +46,11 @@ BOOL CManageOperatorsDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
-
 	CString strText;
+	strText.LoadString(IDS_MANAGEOPERATORS);
+
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+
 	
 	strText.LoadString(IDS_OPERATOR);
 	strText += ":";
@@ -74,8 +76,14 @@ BOOL CManageOperatorsDlg::OnInitDialog()
 	oper.Open();
 
 	while (!oper.IsEOF())
-	{
+	{		
 		operatorComboBox.AddString(oper.m_Username);
+		if (selectedID == oper.m_ID)
+		{
+			operatorComboBox.SetCurSel(operatorComboBox.GetCount() - 1);
+			OnCbnSelchangeCOperator();
+		}
+			
 		oper.MoveNext();
 	}
 	oper.Close();

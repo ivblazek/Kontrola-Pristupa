@@ -23,6 +23,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CString m_Operator;
+	int selectedID;
 	afx_msg void OnCbnSelchangeCOperator();
 	afx_msg void OnBnClickedBUnlock();
 	afx_msg void OnBnClickedBResetPass();
