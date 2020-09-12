@@ -36,8 +36,10 @@ BOOL CListOperatorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	CString strText;
+	strText.LoadString(IDS_OPERATORS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 
 
 	CString strLabel;

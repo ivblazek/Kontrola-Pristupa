@@ -37,8 +37,10 @@ BOOL CListDoorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	CString strText;
+	strText.LoadString(IDS_DOORS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 
 
 	CString strLabel;

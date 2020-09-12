@@ -37,8 +37,10 @@ BOOL CListGroupDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	CString strText;
+	strText.LoadString(IDS_GROUPS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 
 
 	CString strLabel;

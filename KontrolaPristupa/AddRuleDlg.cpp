@@ -48,9 +48,12 @@ BOOL CAddRuleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
-
 	CString strText;
+	strText.LoadString(IDS_ADDRULE);
+
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+
+
 	strText.LoadString(IDS_USER);
 	strText += ":";
 	GetDlgItem(IDC_TUSER)->SetWindowText(strText);
@@ -77,7 +80,7 @@ BOOL CAddRuleDlg::OnInitDialog()
 		userComboBox.AddString(strText);
 		users.MoveNext();
 	}
-	groups.Close();
+
 	users.Close();	
 
 	return TRUE;  // return TRUE  unless you set the focus to a control

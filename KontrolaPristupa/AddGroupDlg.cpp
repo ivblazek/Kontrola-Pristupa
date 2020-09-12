@@ -42,9 +42,12 @@ BOOL CAddGroupDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
-	
 	CString strText;
+	strText.LoadString(IDS_ADDGROUP);
+
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+
+
 	strText.LoadString(IDS_GROUPNAME);
 	strText += ":";
 	GetDlgItem(IDC_TGROUPNAME)->SetWindowText(strText);

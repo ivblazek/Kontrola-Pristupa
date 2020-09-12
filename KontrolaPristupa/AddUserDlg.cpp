@@ -53,11 +53,12 @@ BOOL CAddUserDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-
-	SetWindowText(CKontrolaPristupaApp::strAppName);
-
-
 	CString strText;
+	strText.LoadString(IDS_ADDUSER);
+
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	
+	
 	strText.LoadString(IDS_NAME);
 	strText += ":";
 	GetDlgItem(IDC_TNAME)->SetWindowText(strText);

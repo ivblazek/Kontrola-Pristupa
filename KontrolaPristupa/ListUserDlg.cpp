@@ -37,8 +37,10 @@ BOOL CListUserDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	
+	CString strText;
+	strText.LoadString(IDS_USERS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 	
 
 	CString strLabel;

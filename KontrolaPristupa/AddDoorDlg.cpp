@@ -45,9 +45,11 @@ BOOL CAddDoorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
-
 	CString strText;
+	strText.LoadString(IDS_ADDDOOR);
+
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	
 
 	strText.LoadString(IDS_NAME);
 	strText += ":";

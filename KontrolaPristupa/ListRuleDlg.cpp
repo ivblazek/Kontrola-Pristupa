@@ -37,8 +37,10 @@ BOOL CListRuleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	CString strText;
+	strText.LoadString(IDS_RULES);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 
 
 	CString strLabel;
