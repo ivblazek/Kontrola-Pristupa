@@ -117,9 +117,9 @@ void CAddUserDlg::OnBnClickedBadduser()
 	try
 	{		
 		users.Open();
-		
-		groups.Open();
+
 		groups.m_strFilter.Format(_T("Name = '%s'"), m_GroupName);
+		groups.Open();		
 		
 		users.AddNew();
 		users.m_Name = m_Name;
