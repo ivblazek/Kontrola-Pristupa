@@ -156,6 +156,8 @@ void CListOperatorDlg::OnNMDblclkEvents(NMHDR *pNMHDR, LRESULT *pResult)
 			CManageOperatorsDlg manageOperatorsDlg;
 			manageOperatorsDlg.selectedID = _wtol(selectedID);
 			manageOperatorsDlg.DoModal();
+			lstCtrl.DeleteAllItems();
+			PopulateListCtrl();
 		}		
 	}
 
