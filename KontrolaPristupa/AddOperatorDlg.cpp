@@ -72,7 +72,7 @@ BOOL CAddOperatorDlg::OnInitDialog()
 	if (oper.m_IsAdmin == 1)
 	{
 		strText.LoadString(IDS_REMOVEADMIN);
-		GetDlgItem(IDC_ADMIN)->EnableWindow(1);
+		GetDlgItem(IDC_ADMIN)->EnableWindow(TRUE);
 	}
 	oper.Close();
 		
@@ -101,16 +101,36 @@ void CAddOperatorDlg::OnBnClickedBAddOper()
 		return;
 	}
 
-	COperator oper;
-	oper.Open();
+	COperator opers;
+	
+	try
+	{
+		opers.Open();
+		opers.AddNew();
+		opers.m_Username = m_Username;
+		opers.m_Password = m_Password1;
+		opers.m_IsAdmin = m_Admin;
+		opers.Update();
 
-	oper.AddNew();
-	oper.m_Username = m_Username;
-	oper.m_Password = m_Password1;
-	oper.m_IsAdmin = m_Admin;
-	oper.Update();
+		strMessage.LoadString(IDS_ADDOPEROK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_ADDOPERERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
 
-	oper.Close();
+		GetDlgItem(IDC_EUSERNAME)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EPASSWORD1)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EPASSWORD2)->SetWindowTextW(_T(""));
+		((CButton*)GetDlgItem(IDC_ADMIN))->SetCheck(FALSE);
+		if (opers.IsOpen())
+			opers.Close();
+		return;
+	}
 
+	if (opers.IsOpen())
+		opers.Close();
+	
 	EndDialog(0);
 }

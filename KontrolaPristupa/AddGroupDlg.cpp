@@ -79,14 +79,32 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 	}
 
 	CUserGroup groups;
-	groups.Open();
 
-	groups.AddNew();
-	groups.m_Name = m_Name;
-	groups.m_Description = m_Description;
-	groups.Update();
-	
-	groups.Close();
+	try
+	{
+		groups.Open();
+		groups.AddNew();
+		groups.m_Name = m_Name;
+		groups.m_Description = m_Description;
+		groups.Update();
+
+		strMessage.LoadString(IDS_ADDGROUPOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_ADDGROUPERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		GetDlgItem(IDC_EGROUPNAME)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EGROUPDES)->SetWindowTextW(_T(""));
+		if (groups.IsOpen())
+			groups.Close();
+		return;
+	}
+
+	if (groups.IsOpen())
+		groups.Close();
 
 	EndDialog(0);
 }

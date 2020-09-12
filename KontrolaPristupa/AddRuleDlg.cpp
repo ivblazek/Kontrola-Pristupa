@@ -100,14 +100,33 @@ void CAddRuleDlg::OnBnClickedBAddRule()
 	}
 
 	CDoorRule rules;
-	rules.Open();
 
-	rules.AddNew();
-	rules.m_DoorID = _wtol(m_Door.Mid(0, m_Door.Find('-') - 1));
-	rules.m_UserID = _wtol(m_User.Mid(0, m_User.Find('-') - 1));
-	rules.Update();
+	try
+	{
+		rules.Open();
 
-	rules.Close();
+		rules.AddNew();
+		rules.m_DoorID = _wtol(m_Door.Mid(0, m_Door.Find('-') - 1));
+		rules.m_UserID = _wtol(m_User.Mid(0, m_User.Find('-') - 1));
+		rules.Update();
+
+		strMessage.LoadString(IDS_ADDRULEOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_ADDRULEERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		doorComboBox.SetCurSel(-1);
+		userComboBox.SetCurSel(-1);
+		if (rules.IsOpen())
+			rules.Close();
+		return;
+	}
+
+	if (rules.IsOpen())
+		rules.Close();
 
 	EndDialog(0);
 }

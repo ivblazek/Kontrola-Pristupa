@@ -111,22 +111,47 @@ void CAddUserDlg::OnBnClickedBadduser()
 		return;
 	}		
 
-	CDoorUser user;
-	user.Open();
-
+	CDoorUser users;
 	CUserGroup groups;
-	groups.Open();
-	groups.m_strFilter.Format(_T("Name = '%s'"), m_GroupName);
 
-	user.AddNew();
-	user.m_Name = m_Name;
-	user.m_Surname = m_Surname;
-	user.m_GroupID = groups.m_ID;
-	user.m_CardNo = m_CardNo;
-	user.Update();
-	
-	groups.Close();
-	user.Close();
+	try
+	{		
+		users.Open();
+		
+		groups.Open();
+		groups.m_strFilter.Format(_T("Name = '%s'"), m_GroupName);
+		
+		users.AddNew();
+		users.m_Name = m_Name;
+		users.m_Surname = m_Surname;
+		users.m_GroupID = groups.m_ID;
+		users.m_CardNo = m_CardNo;
+		users.Update();
+
+		strMessage.LoadString(IDS_ADDUSEROK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_ADDUSERERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		GetDlgItem(IDC_ENAME)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_ESURNAME)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EGROUPNAME)->SetWindowTextW(_T(""));
+		groupComboBox.SetCurSel(-1);
+		GetDlgItem(IDC_ECARDNO)->SetWindowTextW(_T(""));
+		if (users.IsOpen())
+			users.Close();
+		if (groups.IsOpen())
+			groups.Close();
+		return;
+	}
+
+	if (users.IsOpen())
+		users.Close();
+	if(groups.IsOpen())
+		groups.Close();
 
 	EndDialog(0);
 }

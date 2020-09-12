@@ -81,17 +81,37 @@ void CAddDoorDlg::OnBnClickedBAddDoor()
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
-
-	CDoor door;
-	door.Open();
 	
-	door.AddNew();
-	door.m_Name = m_Name;
-	door.m_Description = m_Description;
-	door.m_IPaddress = m_IPAddress;
-	door.Update();
+	CDoor doors;
 
-	door.Close();
+	try
+	{		
+		doors.Open();
+
+		doors.AddNew();
+		doors.m_Name = m_Name;
+		doors.m_Description = m_Description;
+		doors.m_IPaddress = m_IPAddress;
+		doors.Update();
+
+		strMessage.LoadString(IDS_ADDDOOROK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_ADDDOORERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		GetDlgItem(IDC_ENAME)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EDESCRIPTION)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EIPADDRESS)->SetWindowTextW(_T(""));
+		if (doors.IsOpen())
+			doors.Close();
+		return;
+	}
+	
+	if (doors.IsOpen())
+		doors.Close();
 
 	EndDialog(0);
 }
