@@ -82,8 +82,7 @@ BOOL CManageOperatorsDlg::OnInitDialog()
 		{
 			operatorComboBox.SetCurSel(operatorComboBox.GetCount() - 1);
 			OnCbnSelchangeCOperator();
-		}
-			
+		}			
 		oper.MoveNext();
 	}
 	oper.Close();
@@ -136,71 +135,154 @@ void CManageOperatorsDlg::OnCbnSelchangeCOperator()
 
 void CManageOperatorsDlg::OnBnClickedBUnlock()
 {
+	CString strMessage;
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
-	oper.Open();
-
 	CBlockedAccount blockAcc;
-	blockAcc.m_strFilter.Format(_T("OperatorID = '%d'"), oper.m_ID);
-	blockAcc.Open();
-	if (!blockAcc.IsEOF())
-		blockAcc.Delete();
-	blockAcc.Close();
 
-	GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE);
+	try
+	{
+		oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
+		oper.Open();
+
+		blockAcc.m_strFilter.Format(_T("OperatorID = '%d'"), oper.m_ID);
+		blockAcc.Open();
+
+		if (!blockAcc.IsEOF())
+			blockAcc.Delete();
+
+		GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE);
+
+		strMessage.LoadString(IDS_USERUNLOCKEDOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_USERUNLOCKEDERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		if (oper.IsOpen())
+			oper.Close();
+		if (blockAcc.IsOpen())
+			blockAcc.Close();
+		return;
+	}
+
+	if (oper.IsOpen())
+		oper.Close();
+	if (blockAcc.IsOpen())
+		blockAcc.Close();
 }
 
 
 void CManageOperatorsDlg::OnBnClickedBResetPass()
 {
+	CString strMessage;
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
-	oper.Open();
-	oper.Edit();
-	oper.m_Password = "defaultpassword123";
-	oper.Update();
-	oper.Close();
+
+	try
+	{
+		oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
+		oper.Open();
+		oper.Edit();
+		oper.m_Password = "defaultpassword123";
+		oper.Update();
+
+		strMessage.LoadString(IDS_PASSRESETOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_PASSRESETERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		if (oper.IsOpen())
+			oper.Close();
+		return;
+	}
+
+	if (oper.IsOpen())
+		oper.Close();
 }
 
 
 void CManageOperatorsDlg::OnBnClickedBAdmin()
 {
+	CString strMessage;
 	CString strText;
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
-	oper.Open();
-	oper.Edit();
-	if (oper.m_IsAdmin == 1)
+
+	try
 	{
-		oper.m_IsAdmin = 0;
-		strText.LoadString(IDS_ADDADMIN);
-		GetDlgItem(IDC_BADMIN)->SetWindowText(strText);
+		oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
+		oper.Open();
+		oper.Edit();
+
+		if (oper.m_IsAdmin == 1)
+		{
+			oper.m_IsAdmin = 0;
+			oper.Update();
+			strText.LoadString(IDS_ADDADMIN);
+			GetDlgItem(IDC_BADMIN)->SetWindowText(strText);
+			strMessage.LoadString(IDS_REMOVEADMINOK);
+		}
+		else
+		{
+			oper.m_IsAdmin = 1;
+			oper.Update();
+			strText.LoadString(IDS_REMOVEADMIN);
+			GetDlgItem(IDC_BADMIN)->SetWindowText(strText);
+			strMessage.LoadString(IDS_ADDADMINOK);
+		}		
+
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 	}
-	else
+	catch (CDBException* ex)
 	{
-		oper.m_IsAdmin = 1;
-		strText.LoadString(IDS_REMOVEADMIN);
-		GetDlgItem(IDC_BADMIN)->SetWindowText(strText);
+		strMessage.LoadString(IDS_ADMINCHANGEERR);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+
+		if (oper.IsOpen())
+			oper.Close();
+		return;
 	}
-	
-	oper.Update();
-	oper.Close();	
+
+	if (oper.IsOpen())
+		oper.Close();
 }
 
 
 void CManageOperatorsDlg::OnBnClickedBDelete()
 {
+	CString strMessage;
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
-	oper.Open();
-	oper.Delete();
-	oper.Close();
-	operatorComboBox.DeleteString(operatorComboBox.SelectString(0, m_Operator));
+	
+	try
+	{
+		oper.m_strFilter.Format(_T("Username = '%s'"), m_Operator);
+		oper.Open();
+		oper.Delete();
+		
+		strMessage.LoadString(IDS_OPERDELETEOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		strMessage.LoadString(IDS_OPERDELETEOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
 
-	GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE); 
+		if (oper.IsOpen())
+			oper.Close();
+		return;
+	}
+
+	if (oper.IsOpen())
+		oper.Close();
+
+	operatorComboBox.DeleteString(operatorComboBox.SelectString(0, m_Operator));
+	GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BRESETPASS)->EnableWindow(FALSE);
 	GetDlgItem(IDC_BADMIN)->EnableWindow(FALSE);
-	GetDlgItem(IDC_BDELETE)->EnableWindow(FALSE);
+	GetDlgItem(IDC_BDELETE)->EnableWindow(FALSE);	
 }
 
 
