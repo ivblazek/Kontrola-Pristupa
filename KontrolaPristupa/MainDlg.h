@@ -1,15 +1,15 @@
 #pragma once
 
 
-// CMenuDlg dialog
+// CMainDlg dialog
 
-class CMenuDlg : public CDialogEx
+class CMainDlg : public CDialogEx
 {
-	DECLARE_DYNAMIC(CMenuDlg)
+	DECLARE_DYNAMIC(CMainDlg)
 
 public:
-	CMenuDlg(CWnd* pParent = NULL);   // standard constructor
-	virtual ~CMenuDlg();
+	CMainDlg(CWnd* pParent = NULL);   // standard constructor
+	virtual ~CMainDlg();
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
@@ -27,13 +27,17 @@ protected:
 public:
 	static CString eventFilter;
 	CString sortData;
-	void CMenuDlg::PopulateListCtrl();
-	void CMenuDlg::DoorSort();
-	void CMenuDlg::StatusSort();
-	void CMenuDlg::UsernameSort();
-	void CMenuDlg::SurnameSort();
-	void CMenuDlg::GroupSort();
-	void CMenuDlg::DatetimeSort();
+	void CMainDlg::PopulateListCtrl();
+	void CMainDlg::DoorSort();
+	void CMainDlg::StatusSort();
+	void CMainDlg::UsernameSort();
+	void CMainDlg::SurnameSort();
+	void CMainDlg::GroupSort();
+	void CMainDlg::DatetimeSort();
+	void CMainDlg::OnBeginPrinting(CDC *pDC, CPrintInfo* pInfo);
+	void CMainDlg::OnPrint(CDC *pDC, CPrintInfo* pInfo);
+	void CMainDlg::OnEndPrinting(CDC *pDC, CPrintInfo* pInfo);
+	void CMainDlg::Print();
 	afx_msg void OnBnClickedBrefresh();
 	afx_msg void OnLogout();
 	afx_msg void OnAddUser();
@@ -51,4 +55,5 @@ public:
 	afx_msg void OnFilter();
 	afx_msg void OnBnClickedBFilterOff();
 	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnReportPrint();
 };

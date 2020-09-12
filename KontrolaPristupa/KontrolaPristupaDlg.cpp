@@ -8,7 +8,7 @@
 #include "afxdialogex.h"
 #include "Operator.h"
 #include "BlockedAccount.h"
-#include "MenuDlg.h"
+#include "MainDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -197,7 +197,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 					oper.Close();
 					EndDialog(0);
 
-					CMenuDlg menuDlg;
+					CMainDlg menuDlg;
 					menuDlg.DoModal();
 					
 					return;
