@@ -216,7 +216,7 @@ void CManageRulesDlg::OnCbnSelchangeCDoor()
 
 	CString strText;
 	CString m_UserID = m_User.Mid(0, m_User.Find('-') - 1);
-	CString m_DoorID = m_Door.Mid(0, m_User.Find('-') - 1);
+	CString m_DoorID = m_Door.Mid(0, m_Door.Find('-') - 1);
 
 	CDoorUser users;
 	users.Open();
