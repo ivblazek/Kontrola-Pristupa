@@ -158,16 +158,19 @@ void CListDoorDlg::OnNMDblclkDoors(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 
-	if (CKontrolaPristupaApp::getAdmin())
+	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		if (CKontrolaPristupaApp::getAdmin())
 		{
-			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
-			CManageDoorsDlg manageDoorsDlg;
-			manageDoorsDlg.selectedID = _wtol(selectedID);
-			manageDoorsDlg.DoModal();
-			lstCtrl.DeleteAllItems();
-			PopulateListCtrl();
+			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			{
+				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+				CManageDoorsDlg manageDoorsDlg;
+				manageDoorsDlg.selectedID = _wtol(selectedID);
+				manageDoorsDlg.DoModal();
+				lstCtrl.DeleteAllItems();
+				PopulateListCtrl();
+			}
 		}
 	}
 

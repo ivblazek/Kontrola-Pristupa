@@ -170,21 +170,24 @@ void CListRuleDlg::OnLvnColumnClickRules(NMHDR *pNMHDR, LRESULT *pResult)
 void CListRuleDlg::OnNMDblclkRules(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	
-	if (CKontrolaPristupaApp::getAdmin())
+
+	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		if (CKontrolaPristupaApp::getAdmin())
 		{
-			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
-			CManageRulesDlg manageRulesDlg;
-			manageRulesDlg.selectedDoorID = _wtol(selectedID);
-			selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 2);
-			manageRulesDlg.selectedUserID = _wtol(selectedID);
-			manageRulesDlg.DoModal();
-			lstCtrl.DeleteAllItems();
-			PopulateListCtrl();
+			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			{
+				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+				CManageRulesDlg manageRulesDlg;
+				manageRulesDlg.selectedDoorID = _wtol(selectedID);
+				selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 2);
+				manageRulesDlg.selectedUserID = _wtol(selectedID);
+				manageRulesDlg.DoModal();
+				lstCtrl.DeleteAllItems();
+				PopulateListCtrl();
+			}
 		}
-	}
+	}	
 
 	*pResult = 0;
 }

@@ -142,16 +142,19 @@ void CListGroupDlg::OnNMDblclkGroups(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	
-	if (CKontrolaPristupaApp::getAdmin())
+	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		if (CKontrolaPristupaApp::getAdmin())
 		{
-			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
-			CManageGroupsDlg manageGroupsDlg;
-			manageGroupsDlg.selectedID = _wtol(selectedID);
-			manageGroupsDlg.DoModal();
-			lstCtrl.DeleteAllItems();
-			PopulateListCtrl();
+			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			{
+				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+				CManageGroupsDlg manageGroupsDlg;
+				manageGroupsDlg.selectedID = _wtol(selectedID);
+				manageGroupsDlg.DoModal();
+				lstCtrl.DeleteAllItems();
+				PopulateListCtrl();
+			}
 		}
 	}
 
