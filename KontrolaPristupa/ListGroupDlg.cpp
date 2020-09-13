@@ -6,6 +6,7 @@
 #include "ListGroupDlg.h"
 #include "afxdialogex.h"
 #include "UserGroup.h"
+#include "ManageGroupsDlg.h"
 
 
 // CListGroupDlg dialog
@@ -25,12 +26,13 @@ CListGroupDlg::~CListGroupDlg()
 void CListGroupDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EVENTS, lstCtrl);
+	DDX_Control(pDX, IDC_GROUPS, lstCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CListGroupDlg, CDialogEx)
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListGroupDlg::OnLvnColumnClickEvents)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_GROUPS, &CListGroupDlg::OnLvnColumnClickGroups)
+	ON_NOTIFY(NM_DBLCLK, IDC_GROUPS, &CListGroupDlg::OnNMDblclkGroups)
 END_MESSAGE_MAP()
 
 BOOL CListGroupDlg::OnInitDialog()
@@ -110,7 +112,7 @@ void CListGroupDlg::RoleSort()
 // CListGroupDlg message handlers
 
 
-void CListGroupDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListGroupDlg::OnLvnColumnClickGroups(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	
@@ -131,6 +133,27 @@ void CListGroupDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+
+	*pResult = 0;
+}
+
+
+void CListGroupDlg::OnNMDblclkGroups(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	
+	if (CKontrolaPristupaApp::adminUser)
+	{
+		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		{
+			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+			CManageGroupsDlg manageGroupsDlg;
+			manageGroupsDlg.selectedID = _wtol(selectedID);
+			manageGroupsDlg.DoModal();
+			lstCtrl.DeleteAllItems();
+			PopulateListCtrl();
+		}
+	}
 
 	*pResult = 0;
 }

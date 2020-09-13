@@ -31,9 +31,9 @@ void CAddRuleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_CBString(pDX, IDC_CUSER, m_User);
-	DDV_MaxChars(pDX, m_User, 50);
+	DDV_MaxChars(pDX, m_User, 100);
 	DDX_CBString(pDX, IDC_CDOOR, m_Door);
-	DDV_MaxChars(pDX, m_Door, 50);
+	DDV_MaxChars(pDX, m_Door, 100);
 	DDX_Control(pDX, IDC_CUSER, userComboBox);
 	DDX_Control(pDX, IDC_CDOOR, doorComboBox);
 }

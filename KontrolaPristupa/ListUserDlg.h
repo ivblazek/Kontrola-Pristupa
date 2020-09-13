@@ -30,5 +30,6 @@ public:
 	void CListUserDlg::SurnameSort();
 	void CListUserDlg::GroupSort();
 	void CListUserDlg::CardSort();
-	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnColumnClickUsers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkUsers(NMHDR *pNMHDR, LRESULT *pResult);
 };

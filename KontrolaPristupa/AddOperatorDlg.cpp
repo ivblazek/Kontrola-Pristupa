@@ -123,9 +123,9 @@ void CAddOperatorDlg::OnBnClickedBAddOper()
 		strMessage.LoadString(IDS_ADDOPERERR);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
 
-		GetDlgItem(IDC_EUSERNAME)->SetWindowTextW(_T(""));
-		GetDlgItem(IDC_EPASSWORD1)->SetWindowTextW(_T(""));
-		GetDlgItem(IDC_EPASSWORD2)->SetWindowTextW(_T(""));
+		GetDlgItem(IDC_EUSERNAME)->SetWindowText(_T(""));
+		GetDlgItem(IDC_EPASSWORD1)->SetWindowText(_T(""));
+		GetDlgItem(IDC_EPASSWORD2)->SetWindowText(_T(""));
 		((CButton*)GetDlgItem(IDC_ADMIN))->SetCheck(FALSE);
 		if (opers.IsOpen())
 			opers.Close();

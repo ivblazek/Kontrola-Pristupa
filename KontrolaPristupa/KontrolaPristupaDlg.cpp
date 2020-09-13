@@ -105,7 +105,7 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 
 	if (CKontrolaPristupaApp::activeOperator.Compare(_T("")))
 	{
-		GetDlgItem(IDC_EUSERNAME)->SetWindowTextW(CKontrolaPristupaApp::activeOperator);
+		GetDlgItem(IDC_EUSERNAME)->SetWindowText(CKontrolaPristupaApp::activeOperator);
 	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -207,7 +207,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 				else
 				{
 					strMessage.LoadString(IDS_WRONGPASSWORD);
-					GetDlgItem(IDC_EPASSWORD)->SetWindowTextW(_T(""));
+					GetDlgItem(IDC_EPASSWORD)->SetWindowText(_T(""));
 					if (!blockAcc.IsEOF())
 					{
 						blockAcc.Edit();
@@ -226,15 +226,15 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 			else
 			{
 				strMessage.LoadString(IDS_BLOCKEDACC);
-				GetDlgItem(IDC_EUSERNAME)->SetWindowTextW(_T(""));
-				GetDlgItem(IDC_EPASSWORD)->SetWindowTextW(_T(""));
+				GetDlgItem(IDC_EUSERNAME)->SetWindowText(_T(""));
+				GetDlgItem(IDC_EPASSWORD)->SetWindowText(_T(""));
 			}
 		}
 		else
 		{
 			strMessage.LoadString(IDS_NOOPERATOR);
-			GetDlgItem(IDC_EUSERNAME)->SetWindowTextW(_T(""));
-			GetDlgItem(IDC_EPASSWORD)->SetWindowTextW(_T(""));
+			GetDlgItem(IDC_EUSERNAME)->SetWindowText(_T(""));
+			GetDlgItem(IDC_EPASSWORD)->SetWindowText(_T(""));
 		}
 
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);

@@ -28,6 +28,6 @@ public:
 	void CListOperatorDlg::IdSort();
 	void CListOperatorDlg::UsernameSort();
 	void CListOperatorDlg::RoleSort();
-	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnNMDblclkEvents(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnColumnClickOperators(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkOperators(NMHDR *pNMHDR, LRESULT *pResult);
 };

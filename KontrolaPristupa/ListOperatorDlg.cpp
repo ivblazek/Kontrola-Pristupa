@@ -25,13 +25,13 @@ CListOperatorDlg::~CListOperatorDlg()
 void CListOperatorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EVENTS, lstCtrl);
+	DDX_Control(pDX, IDC_OPERATORS, lstCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CListOperatorDlg, CDialogEx)
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListOperatorDlg::OnLvnColumnClickEvents)
-	ON_NOTIFY(NM_DBLCLK, IDC_EVENTS, &CListOperatorDlg::OnNMDblclkEvents)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_OPERATORS, &CListOperatorDlg::OnLvnColumnClickOperators)
+	ON_NOTIFY(NM_DBLCLK, IDC_OPERATORS, &CListOperatorDlg::OnNMDblclkOperators)
 END_MESSAGE_MAP()
 
 BOOL CListOperatorDlg::OnInitDialog()
@@ -118,7 +118,7 @@ void CListOperatorDlg::RoleSort()
 // CListOperatorDlg message handlers
 
 
-void CListOperatorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListOperatorDlg::OnLvnColumnClickOperators(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 
@@ -144,7 +144,7 @@ void CListOperatorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
-void CListOperatorDlg::OnNMDblclkEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListOperatorDlg::OnNMDblclkOperators(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 

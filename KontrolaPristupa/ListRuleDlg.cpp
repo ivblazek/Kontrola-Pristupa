@@ -6,6 +6,7 @@
 #include "ListRuleDlg.h"
 #include "afxdialogex.h"
 #include "ListRule.h"
+#include "ManageRulesDlg.h"
 
 
 // CListRuleDlg dialog
@@ -25,12 +26,13 @@ CListRuleDlg::~CListRuleDlg()
 void CListRuleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EVENTS, lstCtrl);
+	DDX_Control(pDX, IDC_RULES, lstCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CListRuleDlg, CDialogEx)
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListRuleDlg::OnLvnColumnClickEvents)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_RULES, &CListRuleDlg::OnLvnColumnClickRules)
+	ON_NOTIFY(NM_DBLCLK, IDC_RULES, &CListRuleDlg::OnNMDblclkRules)
 END_MESSAGE_MAP()
 
 BOOL CListRuleDlg::OnInitDialog()
@@ -133,7 +135,7 @@ void CListRuleDlg::SurnameSort()
 // CListRuleDlg message handlers
 
 
-void CListRuleDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListRuleDlg::OnLvnColumnClickRules(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	
@@ -160,6 +162,29 @@ void CListRuleDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+
+	*pResult = 0;
+}
+
+
+void CListRuleDlg::OnNMDblclkRules(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	
+	if (CKontrolaPristupaApp::adminUser)
+	{
+		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		{
+			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+			CManageRulesDlg manageRulesDlg;
+			manageRulesDlg.selectedDoorID = _wtol(selectedID);
+			selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 2);
+			manageRulesDlg.selectedUserID = _wtol(selectedID);
+			manageRulesDlg.DoModal();
+			lstCtrl.DeleteAllItems();
+			PopulateListCtrl();
+		}
+	}
 
 	*pResult = 0;
 }

@@ -208,8 +208,12 @@
     <ClInclude Include="ListOperatorDlg.h" />
     <ClInclude Include="ListRule.h" />
     <ClInclude Include="ListRuleDlg.h" />
+    <ClInclude Include="ManageGroupsDlg.h" />
+    <ClInclude Include="ManageRulesDlg.h" />
+    <ClInclude Include="ManageUsersDlg.h" />
     <ClInclude Include="ListUser.h" />
     <ClInclude Include="ListUserDlg.h" />
+    <ClInclude Include="ManageDoorsDlg.h" />
     <ClInclude Include="ManageOperatorsDlg.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="Operator.h" />
@@ -238,8 +242,12 @@
     <ClCompile Include="ListOperatorDlg.cpp" />
     <ClCompile Include="ListRule.cpp" />
     <ClCompile Include="ListRuleDlg.cpp" />
+    <ClCompile Include="ManageGroupsDlg.cpp" />
+    <ClCompile Include="ManageRulesDlg.cpp" />
+    <ClCompile Include="ManageUsersDlg.cpp" />
     <ClCompile Include="ListUser.cpp" />
     <ClCompile Include="ListUserDlg.cpp" />
+    <ClCompile Include="ManageDoorsDlg.cpp" />
     <ClCompile Include="ManageOperatorsDlg.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="Operator.cpp" />

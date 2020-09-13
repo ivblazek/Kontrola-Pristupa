@@ -1,30 +1,30 @@
-// AddGroupDlg.cpp : implementation file
+// ManageGroupsDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "KontrolaPristupa.h"
-#include "AddGroupDlg.h"
+#include "ManageGroupsDlg.h"
 #include "afxdialogex.h"
 #include "UserGroup.h"
 
 
-// CAddGroupDlg dialog
+// CManageGroupsDlg dialog
 
-IMPLEMENT_DYNAMIC(CAddGroupDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CManageGroupsDlg, CDialogEx)
 
-CAddGroupDlg::CAddGroupDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_ADDGROUP, pParent)
+CManageGroupsDlg::CManageGroupsDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(IDD_MANAGEGROUPS, pParent)
 	, m_Name(_T(""))
 	, m_Description(_T(""))
 {
 
 }
 
-CAddGroupDlg::~CAddGroupDlg()
+CManageGroupsDlg::~CManageGroupsDlg()
 {
 }
 
-void CAddGroupDlg::DoDataExchange(CDataExchange* pDX)
+void CManageGroupsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EGROUPNAME, m_Name);
@@ -34,16 +34,17 @@ void CAddGroupDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CAddGroupDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_BADDGROUP, &CAddGroupDlg::OnBnClickedBaddgroup)
+BEGIN_MESSAGE_MAP(CManageGroupsDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_BSAVE, &CManageGroupsDlg::OnBnClickedBSave)
+	ON_BN_CLICKED(IDC_BCANCEL, &CManageGroupsDlg::OnBnClickedBCancel)
 END_MESSAGE_MAP()
 
-BOOL CAddGroupDlg::OnInitDialog()
+BOOL CManageGroupsDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 	CString strText;
-	strText.LoadString(IDS_ADDGROUP);
+	strText.LoadString(IDS_MANAGEGROUPS);
 
 	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
 
@@ -57,24 +58,34 @@ BOOL CAddGroupDlg::OnInitDialog()
 	strText += ":";
 	GetDlgItem(IDC_TGROUPDES)->SetWindowText(strText);
 
-	strText.LoadString(IDS_ADDGROUP);
-	GetDlgItem(IDC_BADDGROUP)->SetWindowText(strText);
+	strText.LoadString(IDS_SAVE);
+	GetDlgItem(IDC_BSAVE)->SetWindowText(strText);
 
+	strText.LoadString(IDS_CANCEL);
+	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
 	
+	CUserGroup groups;
+	groups.m_strFilter.Format(_T("ID = '%d'"), selectedID);
+	groups.Open();
+
+	GetDlgItem(IDC_EGROUPNAME)->SetWindowText(groups.m_Name);
+	GetDlgItem(IDC_EGROUPDES)->SetWindowText(groups.m_Description);
+
+	groups.Close();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
 
-// CAddGroupDlg message handlers
+// CManageGroupsDlg message handlers
 
 
-void CAddGroupDlg::OnBnClickedBaddgroup()
+void CManageGroupsDlg::OnBnClickedBSave()
 {
 	UpdateData();
 	CString strMessage;
 
-	if (m_Name.IsEmpty() )
+	if (m_Name.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
@@ -85,22 +96,21 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 
 	try
 	{
+		groups.m_strFilter.Format(_T("ID = '%d'"), selectedID);
 		groups.Open();
-		groups.AddNew();
+		groups.Edit();
 		groups.m_Name = m_Name;
 		groups.m_Description = m_Description;
 		groups.Update();
 
-		strMessage.LoadString(IDS_ADDGROUPOK);
+		strMessage.LoadString(IDS_SAVEGROUPOK);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 	}
 	catch (CDBException* ex)
 	{
-		strMessage.LoadString(IDS_ADDGROUPERR);
+		strMessage.LoadString(IDS_SAVEGROUPERR);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
 
-		GetDlgItem(IDC_EGROUPNAME)->SetWindowText(_T(""));
-		GetDlgItem(IDC_EGROUPDES)->SetWindowText(_T(""));
 		if (groups.IsOpen())
 			groups.Close();
 		return;
@@ -109,5 +119,11 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 	if (groups.IsOpen())
 		groups.Close();
 
+	EndDialog(0);
+}
+
+
+void CManageGroupsDlg::OnBnClickedBCancel()
+{
 	EndDialog(0);
 }

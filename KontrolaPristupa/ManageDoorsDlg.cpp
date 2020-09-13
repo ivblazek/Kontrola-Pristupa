@@ -1,19 +1,19 @@
-// AddDoorDlg.cpp : implementation file
+// ManageDoorsDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "KontrolaPristupa.h"
-#include "AddDoorDlg.h"
+#include "ManageDoorsDlg.h"
 #include "afxdialogex.h"
 #include "Door.h"
 
 
-// CAddDoorDlg dialog
+// CManageDoorsDlg dialog
 
-IMPLEMENT_DYNAMIC(CAddDoorDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CManageDoorsDlg, CDialogEx)
 
-CAddDoorDlg::CAddDoorDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_ADDDOOR, pParent)
+CManageDoorsDlg::CManageDoorsDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(IDD_MANAGEDOORS, pParent)
 	, m_Name(_T(""))
 	, m_Description(_T(""))
 	, m_IPAddress(_T(""))
@@ -21,11 +21,11 @@ CAddDoorDlg::CAddDoorDlg(CWnd* pParent /*=NULL*/)
 
 }
 
-CAddDoorDlg::~CAddDoorDlg()
+CManageDoorsDlg::~CManageDoorsDlg()
 {
 }
 
-void CAddDoorDlg::DoDataExchange(CDataExchange* pDX)
+void CManageDoorsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_ENAME, m_Name);
@@ -37,19 +37,20 @@ void CAddDoorDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CAddDoorDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_BADDDOOR, &CAddDoorDlg::OnBnClickedBAddDoor)
+BEGIN_MESSAGE_MAP(CManageDoorsDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_BSAVE, &CManageDoorsDlg::OnBnClickedBSave)
+	ON_BN_CLICKED(IDC_BCANCEL, &CManageDoorsDlg::OnBnClickedBCancel)
 END_MESSAGE_MAP()
 
-BOOL CAddDoorDlg::OnInitDialog()
+BOOL CManageDoorsDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 	CString strText;
-	strText.LoadString(IDS_ADDDOOR);
+	strText.LoadString(IDS_MANAGEDOORS);
 
 	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
-	
+
 
 	strText.LoadString(IDS_NAME);
 	strText += ":";
@@ -63,16 +64,29 @@ BOOL CAddDoorDlg::OnInitDialog()
 	strText += ":";
 	GetDlgItem(IDC_TIPADDRESS)->SetWindowText(strText);
 
-	strText.LoadString(IDS_ADDDOOR);
-	GetDlgItem(IDC_BADDDOOR)->SetWindowText(strText);
+	strText.LoadString(IDS_SAVE);
+	GetDlgItem(IDC_BSAVE)->SetWindowText(strText);
+
+	strText.LoadString(IDS_CANCEL);
+	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
+
+	CDoor doors;
+	doors.m_strFilter.Format(_T("ID = '%d'"), selectedID);
+	doors.Open();
+
+	GetDlgItem(IDC_ENAME)->SetWindowText(doors.m_Name);
+	GetDlgItem(IDC_EDESCRIPTION)->SetWindowText(doors.m_Description);
+	GetDlgItem(IDC_EIPADDRESS)->SetWindowText((CString)doors.m_IPaddress);
+
+	doors.Close();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-// CAddDoorDlg message handlers
+// CManageDoorsDlg message handlers
 
 
-void CAddDoorDlg::OnBnClickedBAddDoor()
+void CManageDoorsDlg::OnBnClickedBSave()
 {
 	UpdateData();
 	CString strMessage;
@@ -83,37 +97,40 @@ void CAddDoorDlg::OnBnClickedBAddDoor()
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 		return;
 	}
-	
+
 	CDoor doors;
 
 	try
-	{		
+	{
+		doors.m_strFilter.Format(_T("ID = '%d'"), selectedID);
 		doors.Open();
-
-		doors.AddNew();
+		doors.Edit();
 		doors.m_Name = m_Name;
 		doors.m_Description = m_Description;
 		doors.m_IPaddress = m_IPAddress;
 		doors.Update();
 
-		strMessage.LoadString(IDS_ADDDOOROK);
+		strMessage.LoadString(IDS_SAVEDOOROK);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
 	}
 	catch (CDBException* ex)
 	{
-		strMessage.LoadString(IDS_ADDDOORERR);
+		strMessage.LoadString(IDS_SAVEDOORERR);
 		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
 
-		GetDlgItem(IDC_ENAME)->SetWindowText(_T(""));
-		GetDlgItem(IDC_EDESCRIPTION)->SetWindowText(_T(""));
-		GetDlgItem(IDC_EIPADDRESS)->SetWindowText(_T(""));
 		if (doors.IsOpen())
 			doors.Close();
 		return;
 	}
-	
+
 	if (doors.IsOpen())
 		doors.Close();
 
+	EndDialog(0);
+}
+
+
+void CManageDoorsDlg::OnBnClickedBCancel()
+{
 	EndDialog(0);
 }

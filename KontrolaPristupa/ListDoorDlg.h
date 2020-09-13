@@ -29,5 +29,6 @@ public:
 	void CListDoorDlg::UsernameSort();
 	void CListDoorDlg::RoleSort();
 	void CListDoorDlg::IpSort();
-	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnColumnClickDoors(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkDoors(NMHDR *pNMHDR, LRESULT *pResult);
 };

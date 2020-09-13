@@ -6,6 +6,7 @@
 #include "ListDoorDlg.h"
 #include "afxdialogex.h"
 #include "Door.h"
+#include "ManageDoorsDlg.h"
 
 
 // CListDoorDlg dialog
@@ -25,12 +26,13 @@ CListDoorDlg::~CListDoorDlg()
 void CListDoorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EVENTS, lstCtrl);
+	DDX_Control(pDX, IDC_DOORS, lstCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CListDoorDlg, CDialogEx)
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListDoorDlg::OnLvnColumnClickEvents)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_DOORS, &CListDoorDlg::OnLvnColumnClickDoors)
+	ON_NOTIFY(NM_DBLCLK, IDC_DOORS, &CListDoorDlg::OnNMDblclkDoors)
 END_MESSAGE_MAP()
 
 BOOL CListDoorDlg::OnInitDialog()
@@ -123,7 +125,7 @@ void CListDoorDlg::IpSort()
 // CListDoorDlg message handlers
 
 
-void CListDoorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListDoorDlg::OnLvnColumnClickDoors(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	
@@ -147,6 +149,27 @@ void CListDoorDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+
+	*pResult = 0;
+}
+
+
+void CListDoorDlg::OnNMDblclkDoors(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+
+	if (CKontrolaPristupaApp::adminUser)
+	{
+		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		{
+			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+			CManageDoorsDlg manageDoorsDlg;
+			manageDoorsDlg.selectedID = _wtol(selectedID);
+			manageDoorsDlg.DoModal();
+			lstCtrl.DeleteAllItems();
+			PopulateListCtrl();
+		}
+	}
 
 	*pResult = 0;
 }

@@ -28,5 +28,6 @@ public:
 	void CListGroupDlg::IdSort();
 	void CListGroupDlg::UsernameSort();
 	void CListGroupDlg::RoleSort();
-	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnColumnClickGroups(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkGroups(NMHDR *pNMHDR, LRESULT *pResult);
 };

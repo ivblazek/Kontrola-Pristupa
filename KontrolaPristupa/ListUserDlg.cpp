@@ -6,6 +6,7 @@
 #include "ListUserDlg.h"
 #include "afxdialogex.h"
 #include "ListUser.h"
+#include "ManageUsersDlg.h"
 
 
 // CListUserDlg dialog
@@ -25,12 +26,13 @@ CListUserDlg::~CListUserDlg()
 void CListUserDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EVENTS, lstCtrl);
+	DDX_Control(pDX, IDC_USERS, lstCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CListUserDlg, CDialogEx)
-	ON_NOTIFY(LVN_COLUMNCLICK, IDC_EVENTS, &CListUserDlg::OnLvnColumnClickEvents)
+	ON_NOTIFY(LVN_COLUMNCLICK, IDC_USERS, &CListUserDlg::OnLvnColumnClickUsers)
+	ON_NOTIFY(NM_DBLCLK, IDC_USERS, &CListUserDlg::OnNMDblclkUsers)
 END_MESSAGE_MAP()
 
 BOOL CListUserDlg::OnInitDialog()
@@ -133,7 +135,7 @@ void CListUserDlg::CardSort()
 // CListUserDlg message handlers
 
 
-void CListUserDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
+void CListUserDlg::OnLvnColumnClickUsers(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	
@@ -160,6 +162,27 @@ void CListUserDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();
+
+	*pResult = 0;
+}
+
+
+void CListUserDlg::OnNMDblclkUsers(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	
+	if (CKontrolaPristupaApp::adminUser)
+	{
+		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		{
+			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
+			CManageUsersDlg manageUsersDlg;
+			manageUsersDlg.selectedID = _wtol(selectedID);
+			manageUsersDlg.DoModal();
+			lstCtrl.DeleteAllItems();
+			PopulateListCtrl();
+		}
+	}
 
 	*pResult = 0;
 }
