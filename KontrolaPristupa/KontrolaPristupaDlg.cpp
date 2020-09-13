@@ -108,6 +108,19 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 		GetDlgItem(IDC_EUSERNAME)->SetWindowText(CKontrolaPristupaApp::activeOperator);
 	}
 
+	try
+	{
+		CDatabase * db = new CDatabase();
+		db->Open(_T("KontrolaPristupa"));
+		db->Close();
+	}
+	catch(CDBException* ex)
+	{
+		strText.LoadString(IDS_DBCONNERR);
+		MessageBox(strText, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		EndDialog(0);
+	}
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
