@@ -216,6 +216,9 @@
     <None Include="res\KontrolaPristupa.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="dsn.ini">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\KontrolaPristupa.ico">

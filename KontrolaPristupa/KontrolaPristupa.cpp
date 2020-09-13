@@ -23,12 +23,32 @@ END_MESSAGE_MAP()
 CKontrolaPristupaApp::CKontrolaPristupaApp()
 {
 	// support Restart Manager
-	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;	
+	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
-
-	dsn = "KontrolaPristupa";
+		
+	CStdioFile iniFile;
+	if (!iniFile.Open(_T("dsn.ini"), CFile::modeRead))
+	{
+		dsn = "KontrolaPristupa";
+	}
+	else
+	{
+		CString dsnFile;
+		while (iniFile.ReadString(dsnFile))
+		{
+			if (!dsnFile.Find(_T("DSN=")))
+			{
+				dsn = dsnFile.Mid(dsnFile.Find('\"') + 1, dsnFile.GetLength() - dsnFile.Find('\"') - 2);
+			}
+		}
+		if (dsn.IsEmpty())
+		{
+			dsn = "KontrolaPristupa";
+		}		
+	}
+	
 }
 
 

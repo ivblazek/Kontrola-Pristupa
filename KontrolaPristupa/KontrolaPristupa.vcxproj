@@ -263,6 +263,7 @@
     <ResourceCompile Include="KontrolaPristupa.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dsn.ini" />
     <None Include="res\KontrolaPristupa.rc2" />
   </ItemGroup>
   <ItemGroup>
