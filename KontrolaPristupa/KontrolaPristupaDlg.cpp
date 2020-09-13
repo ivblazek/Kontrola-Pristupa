@@ -38,7 +38,7 @@ CKontrolaPristupaDlg::CKontrolaPristupaDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_KONTROLAPRISTUPA_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	CKontrolaPristupaApp::strAppName.LoadString(IDS_APPNAME);
+	CKontrolaPristupaApp::appName.LoadString(IDS_APPNAME);
 }
 
 void CKontrolaPristupaDlg::DoDataExchange(CDataExchange* pDX)
@@ -87,7 +87,7 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	
-	SetWindowText(CKontrolaPristupaApp::strAppName);
+	SetWindowText(CKontrolaPristupaApp::getAppName());
 
 	CString strText;
 	strText.LoadString(IDS_USERNAME);
@@ -103,21 +103,21 @@ BOOL CKontrolaPristupaDlg::OnInitDialog()
 	strText.LoadString(IDS_LOGIN);
 	GetDlgItem(IDC_BLOGIN)->SetWindowText(strText);
 
-	if (CKontrolaPristupaApp::activeOperator.Compare(_T("")))
+	if (CKontrolaPristupaApp::getActiveOperator().Compare(_T("")))
 	{
-		GetDlgItem(IDC_EUSERNAME)->SetWindowText(CKontrolaPristupaApp::activeOperator);
+		GetDlgItem(IDC_EUSERNAME)->SetWindowText(CKontrolaPristupaApp::getActiveOperator());
 	}
 
 	try
 	{
 		CDatabase * db = new CDatabase();
-		db->Open(_T("KontrolaPristupa"));
+		db->Open(CKontrolaPristupaApp::getDsn());
 		db->Close();
 	}
 	catch(CDBException* ex)
 	{
 		strText.LoadString(IDS_DBCONNERR);
-		MessageBox(strText, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strText, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 		EndDialog(0);
 	}
 
@@ -204,7 +204,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 				if (!password.Compare(oper.m_Password))
 				{
 					CKontrolaPristupaApp::activeOperator = oper.m_Username;					
-					CKontrolaPristupaApp::adminUser = oper.m_IsAdmin;
+					CKontrolaPristupaApp::admin = oper.m_IsAdmin;
 
 					if (!blockAcc.IsEOF())
 						blockAcc.Delete();
@@ -250,7 +250,7 @@ void CKontrolaPristupaDlg::OnBnClickedBLogin()
 			GetDlgItem(IDC_EPASSWORD)->SetWindowText(_T(""));
 		}
 
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		oper.Close();
 	}
 }

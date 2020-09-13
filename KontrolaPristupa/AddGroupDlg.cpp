@@ -45,7 +45,7 @@ BOOL CAddGroupDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_ADDGROUP);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_GROUPNAME);
@@ -77,7 +77,7 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 	if (m_Name.IsEmpty() )
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		return;
 	}
 
@@ -92,12 +92,12 @@ void CAddGroupDlg::OnBnClickedBaddgroup()
 		groups.Update();
 
 		strMessage.LoadString(IDS_ADDGROUPOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADDGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		GetDlgItem(IDC_EGROUPNAME)->SetWindowText(_T(""));
 		GetDlgItem(IDC_EGROUPDES)->SetWindowText(_T(""));

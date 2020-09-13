@@ -17,11 +17,18 @@
 
 class CKontrolaPristupaApp : public CWinApp
 {
+private:
+	static CString appName;
+	static CString activeOperator;
+	static BOOL admin;
+	static CString dsn;
+	friend class CKontrolaPristupaDlg;
 public:
 	CKontrolaPristupaApp();
-	static CString strAppName;
-	static CString activeOperator;
-	static BOOL adminUser;
+	static CString getAppName();
+	static CString getActiveOperator();
+	static BOOL getAdmin();
+	static CString getDsn();
 
 // Overrides
 public:

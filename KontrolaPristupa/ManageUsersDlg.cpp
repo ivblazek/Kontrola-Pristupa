@@ -54,7 +54,7 @@ BOOL CManageUsersDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGEUSERS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_NAME);
@@ -116,14 +116,14 @@ void CManageUsersDlg::OnBnClickedBSave()
 	if (m_Name.IsEmpty() || m_Surname.IsEmpty() || m_GroupName.IsEmpty() || m_CardNo.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		return;
 	}
 
 	if (m_CardNo.GetLength() < 8)
 	{
 		strMessage.LoadString(IDS_SHORTCARDNO);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		return;
 	}
 
@@ -146,12 +146,12 @@ void CManageUsersDlg::OnBnClickedBSave()
 		users.Update();
 
 		strMessage.LoadString(IDS_SAVEUSEROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_SAVEUSERERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (users.IsOpen())
 			users.Close();

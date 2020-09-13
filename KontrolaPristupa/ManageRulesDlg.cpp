@@ -53,7 +53,7 @@ BOOL CManageRulesDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGERULES);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 	
 	strText.LoadString(IDS_USER);
 	strText += ":";
@@ -142,7 +142,7 @@ void CManageRulesDlg::OnBnClickedBDelete()
 	if (m_User.IsEmpty() || m_Door.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		return;
 	}
 
@@ -159,12 +159,12 @@ void CManageRulesDlg::OnBnClickedBDelete()
 		rules.Delete();
 
 		strMessage.LoadString(IDS_DELETERULEOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_DELETERULEERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (rules.IsOpen())
 			rules.Close();

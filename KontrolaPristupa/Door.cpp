@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "Door.h"
+#include "KontrolaPristupa.h"
 IMPLEMENT_DYNAMIC(CDoor, CRecordset)
 
 CDoor::CDoor(CDatabase* pdb)
@@ -27,7 +28,7 @@ CDoor::CDoor(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CDoor::GetDefaultConnect()
 {
-	return _T("DSN=KontrolaPristupa;Description=Seminarski rad NWP 2020;Trusted_Connection=Yes;APP=Microsoft\x00ae Visual Studio\x00ae 2015;WSID=NDPC10;DATABASE=KontrolaPristupa");
+	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
 }
 
 CString CDoor::GetDefaultSQL()

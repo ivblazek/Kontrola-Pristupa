@@ -41,7 +41,7 @@ BOOL CListOperatorDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_OPERATORS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 
 	CString strLabel;
@@ -76,7 +76,7 @@ void CListOperatorDlg::PopulateListCtrl()
 
 		itemNo = lstCtrl.InsertItem(0, strItem);
 		lstCtrl.SetItemText(itemNo, 1, opers.m_Username);
-		if (CKontrolaPristupaApp::adminUser)
+		if (CKontrolaPristupaApp::getAdmin())
 		{
 			if (opers.m_IsAdmin == 1)
 				strItem = "Admin";
@@ -148,9 +148,9 @@ void CListOperatorDlg::OnNMDblclkOperators(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 
-	if (CKontrolaPristupaApp::adminUser)
+	if (CKontrolaPristupaApp::getAdmin())
 	{
-		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
 		{
 			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
 			CManageOperatorsDlg manageOperatorsDlg;

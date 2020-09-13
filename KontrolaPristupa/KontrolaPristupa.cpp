@@ -27,12 +27,36 @@ CKontrolaPristupaApp::CKontrolaPristupaApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+
+	dsn = "KontrolaPristupa";
 }
 
 
-CString CKontrolaPristupaApp::strAppName;
+CString CKontrolaPristupaApp::appName;
 CString CKontrolaPristupaApp::activeOperator;
-BOOL CKontrolaPristupaApp::adminUser;
+BOOL CKontrolaPristupaApp::admin;
+CString CKontrolaPristupaApp::dsn;
+
+CString CKontrolaPristupaApp::getAppName()
+{
+	return appName;
+}
+
+CString CKontrolaPristupaApp::getActiveOperator()
+{
+	return activeOperator;
+}
+
+BOOL CKontrolaPristupaApp::getAdmin()
+{
+	return admin;
+}
+
+CString CKontrolaPristupaApp::getDsn()
+{
+	return dsn;
+}
+
 
 // The one and only CKontrolaPristupaApp object
 

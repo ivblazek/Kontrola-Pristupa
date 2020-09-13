@@ -49,7 +49,7 @@ BOOL CManageOperatorsDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGEOPERATORS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 	
 	strText.LoadString(IDS_OPERATOR);
@@ -72,7 +72,7 @@ BOOL CManageOperatorsDlg::OnInitDialog()
 	GetDlgItem(IDC_BEXIT)->SetWindowText(strText);
 
 	COperator oper;
-	oper.m_strFilter.Format(_T("NOT Username = '%s'"), CKontrolaPristupaApp::activeOperator);
+	oper.m_strFilter.Format(_T("NOT Username = '%s'"), CKontrolaPristupaApp::getActiveOperator());
 	oper.Open();
 
 	while (!oper.IsEOF())
@@ -153,12 +153,12 @@ void CManageOperatorsDlg::OnBnClickedBUnlock()
 		GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE);
 
 		strMessage.LoadString(IDS_USERUNLOCKEDOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_USERUNLOCKEDERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (oper.IsOpen())
 			oper.Close();
@@ -188,12 +188,12 @@ void CManageOperatorsDlg::OnBnClickedBResetPass()
 		oper.Update();
 
 		strMessage.LoadString(IDS_PASSRESETOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_PASSRESETERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (oper.IsOpen())
 			oper.Close();
@@ -234,12 +234,12 @@ void CManageOperatorsDlg::OnBnClickedBAdmin()
 			strMessage.LoadString(IDS_ADDADMINOK);
 		}		
 
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADMINCHANGEERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (oper.IsOpen())
 			oper.Close();
@@ -263,12 +263,12 @@ void CManageOperatorsDlg::OnBnClickedBDelete()
 		oper.Delete();
 		
 		strMessage.LoadString(IDS_OPERDELETEOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_OPERDELETEOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (oper.IsOpen())
 			oper.Close();

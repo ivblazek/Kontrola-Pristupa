@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "Events.h"
+#include "KontrolaPristupa.h"
 IMPLEMENT_DYNAMIC(CEvents, CRecordset)
 
 CEvents::CEvents(CDatabase* pdb)
@@ -29,7 +30,7 @@ CEvents::CEvents(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CEvents::GetDefaultConnect()
 {
-	return _T("DSN=KontrolaPristupa;Description=Seminarski rad NWP 2020;Trusted_Connection=Yes;APP=Microsoft\x00ae Visual Studio\x00ae 2015;WSID=NDPC10;DATABASE=KontrolaPristupa");
+	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
 }
 
 CString CEvents::GetDefaultSQL()

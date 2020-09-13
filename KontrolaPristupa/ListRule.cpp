@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "ListRule.h"
+#include "KontrolaPristupa.h"
 IMPLEMENT_DYNAMIC(CListRule, CRecordset)
 
 CListRule::CListRule(CDatabase* pdb)
@@ -28,7 +29,7 @@ CListRule::CListRule(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CListRule::GetDefaultConnect()
 {
-	return _T("DSN=KontrolaPristupa;Description=Seminarski rad NWP 2020;Trusted_Connection=Yes;APP=Microsoft\x00ae Visual Studio\x00ae 2015;WSID=NDPC10;DATABASE=KontrolaPristupa");
+	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
 }
 
 CString CListRule::GetDefaultSQL()

@@ -48,7 +48,7 @@ BOOL CAddDoorDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_ADDDOOR);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 	
 
 	strText.LoadString(IDS_NAME);
@@ -80,7 +80,7 @@ void CAddDoorDlg::OnBnClickedBAddDoor()
 	if (m_Name.IsEmpty() || m_Description.IsEmpty() || m_IPAddress.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		return;
 	}
 	
@@ -97,12 +97,12 @@ void CAddDoorDlg::OnBnClickedBAddDoor()
 		doors.Update();
 
 		strMessage.LoadString(IDS_ADDDOOROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADDDOORERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		GetDlgItem(IDC_ENAME)->SetWindowText(_T(""));
 		GetDlgItem(IDC_EDESCRIPTION)->SetWindowText(_T(""));

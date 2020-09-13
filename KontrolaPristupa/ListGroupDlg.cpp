@@ -42,7 +42,7 @@ BOOL CListGroupDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_GROUPS);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 
 	CString strLabel;
@@ -142,9 +142,9 @@ void CListGroupDlg::OnNMDblclkGroups(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	
-	if (CKontrolaPristupaApp::adminUser)
+	if (CKontrolaPristupaApp::getAdmin())
 	{
-		if (CKontrolaPristupaApp::activeOperator.Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+		if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
 		{
 			CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
 			CManageGroupsDlg manageGroupsDlg;

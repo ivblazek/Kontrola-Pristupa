@@ -68,7 +68,7 @@ BOOL CFilterDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_FILTER);
 
-	SetWindowText(CKontrolaPristupaApp::strAppName + " - " + strText);
+	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_DOOR);
@@ -228,7 +228,7 @@ void CFilterDlg::OnCbnSelchangeCnamef()
 	{
 		CString strMessage;
 		strMessage.LoadString(IDS_USERGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		groupComboBox.SetCurSel(-1);
 	}
 }
@@ -241,7 +241,7 @@ void CFilterDlg::OnCbnSelchangeCgroupf()
 	{
 		CString strMessage;
 		strMessage.LoadString(IDS_USERGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::strAppName, MB_OK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 		nameComboBox.SetCurSel(-1);
 	}
 }
