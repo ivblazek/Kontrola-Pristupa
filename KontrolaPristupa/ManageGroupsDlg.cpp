@@ -37,6 +37,7 @@ void CManageGroupsDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CManageGroupsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BSAVE, &CManageGroupsDlg::OnBnClickedBSave)
 	ON_BN_CLICKED(IDC_BCANCEL, &CManageGroupsDlg::OnBnClickedBCancel)
+	ON_BN_CLICKED(IDC_BDELETE, &CManageGroupsDlg::OnBnClickedBDelete)
 END_MESSAGE_MAP()
 
 BOOL CManageGroupsDlg::OnInitDialog()
@@ -63,6 +64,9 @@ BOOL CManageGroupsDlg::OnInitDialog()
 
 	strText.LoadString(IDS_CANCEL);
 	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
+	
+	strText.LoadString(IDS_DELETE);
+	GetDlgItem(IDC_BDELETE)->SetWindowText(strText);
 	
 	CUserGroup groups;
 	groups.m_strFilter.Format(_T("ID = '%d'"), selectedID);
@@ -125,5 +129,42 @@ void CManageGroupsDlg::OnBnClickedBSave()
 
 void CManageGroupsDlg::OnBnClickedBCancel()
 {
+	EndDialog(0);
+}
+
+
+void CManageGroupsDlg::OnBnClickedBDelete()
+{
+	CString strMessage;
+	CUserGroup groups;
+
+	try
+	{
+		groups.m_strFilter.Format(_T("ID = '%d'"), selectedID);
+		groups.Open();
+		groups.Delete();
+
+		strMessage.LoadString(IDS_DELGROUPOK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		if (ex->m_strError.Find(_T("FK_Users_Groups")) != -1)
+		{
+			strMessage.LoadString(IDS_DELGROUPFKUSER);
+		}
+		else
+			strMessage.LoadString(IDS_DELGROUPERR);
+
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+
+		if (groups.IsOpen())
+			groups.Close();
+		return;
+	}
+
+	if (groups.IsOpen())
+		groups.Close();
+
 	EndDialog(0);
 }

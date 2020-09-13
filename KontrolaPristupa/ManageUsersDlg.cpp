@@ -45,6 +45,7 @@ void CManageUsersDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CManageUsersDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BSAVE, &CManageUsersDlg::OnBnClickedBSave)
 	ON_BN_CLICKED(IDC_BCANCEL, &CManageUsersDlg::OnBnClickedBCancel)
+	ON_BN_CLICKED(IDC_BDELETE, &CManageUsersDlg::OnBnClickedBDelete)
 END_MESSAGE_MAP()
 
 BOOL CManageUsersDlg::OnInitDialog()
@@ -78,6 +79,9 @@ BOOL CManageUsersDlg::OnInitDialog()
 
 	strText.LoadString(IDS_CANCEL);
 	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
+
+	strText.LoadString(IDS_DELETE);
+	GetDlgItem(IDC_BDELETE)->SetWindowText(strText);
 
 
 	CDoorUser users;
@@ -171,5 +175,46 @@ void CManageUsersDlg::OnBnClickedBSave()
 
 void CManageUsersDlg::OnBnClickedBCancel()
 {
+	EndDialog(0);
+}
+
+
+void CManageUsersDlg::OnBnClickedBDelete()
+{
+	CString strMessage;
+	CDoorUser users;
+
+	try
+	{
+		users.m_strFilter.Format(_T("ID = '%d'"), selectedID);
+		users.Open();
+		users.Delete();
+
+		strMessage.LoadString(IDS_DELUSEROK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		if (ex->m_strError.Find(_T("FK_Events_Users")) != -1)
+		{
+			strMessage.LoadString(IDS_DELUSERFKEVENT);
+		}
+		else if (ex->m_strError.Find(_T("FK_Rules_Users")) != -1)
+		{
+			strMessage.LoadString(IDS_DELUSERFKRULES);
+		}
+		else
+			strMessage.LoadString(IDS_DELUSERERR);
+
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+
+		if (users.IsOpen())
+			users.Close();
+		return;
+	}
+
+	if (users.IsOpen())
+		users.Close();
+
 	EndDialog(0);
 }

@@ -40,6 +40,7 @@ void CManageDoorsDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CManageDoorsDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BSAVE, &CManageDoorsDlg::OnBnClickedBSave)
 	ON_BN_CLICKED(IDC_BCANCEL, &CManageDoorsDlg::OnBnClickedBCancel)
+	ON_BN_CLICKED(IDC_BDELETE, &CManageDoorsDlg::OnBnClickedBDelete)
 END_MESSAGE_MAP()
 
 BOOL CManageDoorsDlg::OnInitDialog()
@@ -69,6 +70,9 @@ BOOL CManageDoorsDlg::OnInitDialog()
 
 	strText.LoadString(IDS_CANCEL);
 	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
+
+	strText.LoadString(IDS_DELETE);
+	GetDlgItem(IDC_BDELETE)->SetWindowText(strText);
 
 	CDoor doors;
 	doors.m_strFilter.Format(_T("ID = '%d'"), selectedID);
@@ -132,5 +136,46 @@ void CManageDoorsDlg::OnBnClickedBSave()
 
 void CManageDoorsDlg::OnBnClickedBCancel()
 {
+	EndDialog(0);
+}
+
+
+void CManageDoorsDlg::OnBnClickedBDelete()
+{
+	CString strMessage;
+	CDoor doors;
+
+	try
+	{
+		doors.m_strFilter.Format(_T("ID = '%d'"), selectedID);
+		doors.Open();
+		doors.Delete();
+
+		strMessage.LoadString(IDS_DELDOOROK);
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+	}
+	catch (CDBException* ex)
+	{
+		if (ex->m_strError.Find(_T("FK_Events_Doors")) != -1)
+		{
+			strMessage.LoadString(IDS_DELDOORFKEVENT);
+		}
+		else if (ex->m_strError.Find(_T("FK_Rules_Doors")) != -1)
+		{
+			strMessage.LoadString(IDS_DELDOORFKRULES);
+		}
+		else
+			strMessage.LoadString(IDS_DELDOORERR);
+
+		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+
+		if (doors.IsOpen())
+			doors.Close();
+		return;
+	}
+
+	if (doors.IsOpen())
+		doors.Close();
+
 	EndDialog(0);
 }
