@@ -78,14 +78,14 @@ BOOL CManageUsersDlg::OnInitDialog()
 
 	strText.LoadString(IDS_CANCEL);
 	GetDlgItem(IDC_BCANCEL)->SetWindowText(strText);
-		
+
 
 	CDoorUser users;
 	users.m_strFilter.Format(_T("ID = '%d'"), selectedID);
 	users.Open();
-	
+
 	GetDlgItem(IDC_ENAME)->SetWindowText(users.m_Name);
-	GetDlgItem(IDC_ESURNAME)->SetWindowText(users.m_Name);
+	GetDlgItem(IDC_ESURNAME)->SetWindowText(users.m_Surname);
 	GetDlgItem(IDC_ECARDNO)->SetWindowText((CString)users.m_CardNo);
 
 	CUserGroup groups;
@@ -137,7 +137,7 @@ void CManageUsersDlg::OnBnClickedBSave()
 
 		groups.m_strFilter.Format(_T("Name = '%s'"), m_GroupName);
 		groups.Open();
-		
+
 		users.Edit();
 		users.m_Name = m_Name;
 		users.m_Surname = m_Surname;
