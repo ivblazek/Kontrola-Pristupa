@@ -262,12 +262,18 @@ void CManageOperatorsDlg::OnBnClickedBDelete()
 		oper.Open();
 		oper.Delete();
 		
-		strMessage.LoadString(IDS_OPERDELETEOK);
+		strMessage.LoadString(IDS_DELOPEROK);
 		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
-		strMessage.LoadString(IDS_OPERDELETEOK);
+		if (ex->m_strError.Find(_T("FK_Blocked_Operator")) != -1)
+		{
+			strMessage.LoadString(IDS_DELOPERFKBLOCKED);
+		}
+		else
+			strMessage.LoadString(IDS_DELOPERERR);
+		
 		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
 
 		if (oper.IsOpen())
@@ -278,11 +284,7 @@ void CManageOperatorsDlg::OnBnClickedBDelete()
 	if (oper.IsOpen())
 		oper.Close();
 
-	operatorComboBox.DeleteString(operatorComboBox.SelectString(0, m_Operator));
-	GetDlgItem(IDC_BUNLOCK)->EnableWindow(FALSE);
-	GetDlgItem(IDC_BRESETPASS)->EnableWindow(FALSE);
-	GetDlgItem(IDC_BADMIN)->EnableWindow(FALSE);
-	GetDlgItem(IDC_BDELETE)->EnableWindow(FALSE);	
+	EndDialog(0);
 }
 
 
