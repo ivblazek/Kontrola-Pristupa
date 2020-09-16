@@ -158,9 +158,9 @@ void CMainDlg::PopulateListCtrl()
 	{
 		itemNo = lstCtrl.InsertItem(0, events.m_DoorName);
 		if (events.m_DoorOpened == 1)
-			strItem = "Opened";
+			strItem.LoadString(IDS_OPENED);
 		else
-			strItem = "Not Opened";
+			strItem.LoadString(IDS_NOTOPENED);
 		lstCtrl.SetItemText(itemNo, 1, strItem);
 		lstCtrl.SetItemText(itemNo, 2, events.m_UserName);
 		lstCtrl.SetItemText(itemNo, 3, events.m_Surname);
