@@ -9,7 +9,7 @@ class CFilterDlg : public CDialogEx
 	DECLARE_DYNAMIC(CFilterDlg)
 
 public:
-	CFilterDlg(CWnd* pParent = NULL);   // standard constructor
+	CFilterDlg(CString& eventFilter, CWnd* pParent = NULL);   // standard constructor
 	virtual ~CFilterDlg();
 
 // Dialog Data
@@ -39,4 +39,5 @@ public:
 	CTime dateEnd;
 	CTime timeStart;
 	CTime timeEnd;
+	CString& eventFilter;
 };

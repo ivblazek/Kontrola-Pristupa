@@ -25,7 +25,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	
 public:
-	static CString eventFilter;
+	CString eventFilter;
 	CString sortData;
 	void CMainDlg::PopulateListCtrl();
 	void CMainDlg::DoorSort();

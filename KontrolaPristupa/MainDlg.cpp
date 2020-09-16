@@ -39,7 +39,6 @@ CMainDlg::~CMainDlg()
 {
 }
 
-CString CMainDlg::eventFilter = _T("1 = 1");
 
 void CMainDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -169,7 +168,7 @@ void CMainDlg::PopulateListCtrl()
 	}
 	events.Close();
 
-	if (eventFilter.Compare(_T("1 = 1")))
+	if (eventFilter.Compare(_T("")))
 	{
 		GetDlgItem(IDC_BFILTEROFF)->ShowWindow(SW_SHOW);
 	}
@@ -322,7 +321,7 @@ void CMainDlg::OnOperatorListOperators()
 
 void CMainDlg::OnFilter()
 {
-	CFilterDlg filterDlg;
+	CFilterDlg filterDlg(eventFilter);
 	filterDlg.DoModal();
 
 	lstCtrl.DeleteAllItems();
@@ -332,7 +331,7 @@ void CMainDlg::OnFilter()
 
 void CMainDlg::OnBnClickedBFilterOff()
 {
-	eventFilter = "1 = 1";
+	eventFilter = "";
 	GetDlgItem(IDC_BFILTEROFF)->ShowWindow(SW_HIDE);
 	lstCtrl.DeleteAllItems();
 	PopulateListCtrl();

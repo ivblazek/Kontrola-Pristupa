@@ -15,8 +15,8 @@
 
 IMPLEMENT_DYNAMIC(CFilterDlg, CDialogEx)
 
-CFilterDlg::CFilterDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_FILTER, pParent)
+CFilterDlg::CFilterDlg(CString& eventFilter, CWnd* pParent /*=NULL*/)
+	: CDialogEx(IDD_FILTER, pParent), eventFilter(eventFilter)
 	, m_door(_T(""))
 	, m_status(_T(""))
 	, m_name(_T(""))
@@ -150,13 +150,12 @@ void CFilterDlg::OnBnClickedApply()
 	UpdateData();
 	CString strText;
 
-	if (CMainDlg::eventFilter.Compare(_T("1 = 1")))
-		CMainDlg::eventFilter = _T("1 = 1");
+	eventFilter = "1 = 1";
 
 	if (!m_door.IsEmpty())
 	{
 		strText.Format(_T(" AND [Door Name] = '%s'"), m_door);
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 	}
 
 	if (!m_status.IsEmpty())
@@ -166,7 +165,7 @@ void CFilterDlg::OnBnClickedApply()
 		if (!m_status.Compare(strText))
 			status = 1;
 		strText.Format(_T(" AND [Door Opened] = %d"), status);
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 	}
 
 	if (!m_name.IsEmpty())
@@ -175,47 +174,50 @@ void CFilterDlg::OnBnClickedApply()
 
 		filter = m_name.Mid(0, m_name.Find(' '));
 		strText.Format(_T(" AND [User Name] = '%s'"), filter);
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 
 		filter = m_name.Right(m_name.Find(' ') + 1);
 		strText.Format(_T(" AND [Surname] = '%s'"), filter);
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 	}
 
 	if (!m_group.IsEmpty())
 	{
 		strText.Format(_T(" AND [Group Name] = '%s'"), m_group);
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 	}
 	
 	if (dateCheckBox && timeCheckBox)
 	{
 		strText.Format(_T(" AND [DateTime] >= '%s %s'"), dateStart.Format(_T("%Y-%m-%d")), timeStart.Format(_T("%H:%M:%S")));
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 
 		strText.Format(_T(" AND [DateTime] <= '%s %s'"), dateEnd.Format(_T("%Y-%m-%d")), timeEnd.Format(_T("%H:%M:%S")));
-		CMainDlg::eventFilter += strText;
+		eventFilter += strText;
 	}
 	else
 	{
 		if (dateCheckBox)
 		{
 			strText.Format(_T(" AND [DateTime] >= '%s'"), dateStart.Format(_T("%Y-%m-%d")));
-			CMainDlg::eventFilter += strText;
+			eventFilter += strText;
 
 			strText.Format(_T(" AND [DateTime] <= '%s'"), dateEnd.Format(_T("%Y-%m-%d")));
-			CMainDlg::eventFilter += strText;
+			eventFilter += strText;
 		}
 
 		if (timeCheckBox)
 		{
 			strText.Format(_T(" AND CONVERT(VARCHAR(8), [DateTime], 108) >= '%s'"), timeStart.Format(_T("%H:%M:%S")));
-			CMainDlg::eventFilter += strText;
+			eventFilter += strText;
 
 			strText.Format(_T(" AND CONVERT(VARCHAR(8), [DateTime], 108) <= '%s'"), timeEnd.Format(_T("%H:%M:%S")));
-			CMainDlg::eventFilter += strText;
+			eventFilter += strText;
 		}
-	}	
+	}
+
+	if (!eventFilter.Compare(_T("1 = 1")))
+		eventFilter = "";
 	
 	EndDialog(0);
 }
