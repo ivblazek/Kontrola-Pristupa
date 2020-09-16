@@ -26,4 +26,5 @@ public:
 	CString m_Password2;
 	BOOL m_Admin;
 	afx_msg void OnBnClickedBAddOper();
+	CKontrolaPristupaApp* theApp;
 };

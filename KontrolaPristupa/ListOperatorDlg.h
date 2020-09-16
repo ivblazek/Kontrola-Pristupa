@@ -30,4 +30,5 @@ public:
 	void CListOperatorDlg::RoleSort();
 	afx_msg void OnLvnColumnClickOperators(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkOperators(NMHDR *pNMHDR, LRESULT *pResult);
+	CKontrolaPristupaApp* theApp;
 };

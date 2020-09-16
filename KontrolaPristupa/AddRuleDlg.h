@@ -29,4 +29,5 @@ public:
 	CString m_Door;
 	CComboBox userComboBox;
 	CComboBox doorComboBox;
+	CKontrolaPristupaApp* theApp;
 };

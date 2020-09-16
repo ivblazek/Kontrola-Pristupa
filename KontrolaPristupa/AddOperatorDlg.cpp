@@ -19,7 +19,7 @@ CAddOperatorDlg::CAddOperatorDlg(CWnd* pParent /*=NULL*/)
 	, m_Password2(_T(""))
 	, m_Admin(FALSE)
 {
-	
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CAddOperatorDlg::~CAddOperatorDlg()
@@ -50,7 +50,7 @@ BOOL CAddOperatorDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_ADDOPERATOR);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_USERNAME);
@@ -69,7 +69,7 @@ BOOL CAddOperatorDlg::OnInitDialog()
 	GetDlgItem(IDC_BADDOPER)->SetWindowText(strText);
 
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::getActiveOperator());
+	oper.m_strFilter.Format(_T("Username = '%s'"), theApp->getActiveOperator());
 	oper.Open();
 
 	if (oper.m_IsAdmin == 1)
@@ -93,14 +93,14 @@ void CAddOperatorDlg::OnBnClickedBAddOper()
 	if (m_Username.IsEmpty() || m_Password1.IsEmpty() || m_Password2.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
 	if (m_Password1.Compare(m_Password2))
 	{
 		strMessage.LoadString(IDS_PASSMISSMATCH);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
@@ -116,12 +116,12 @@ void CAddOperatorDlg::OnBnClickedBAddOper()
 		opers.Update();
 
 		strMessage.LoadString(IDS_ADDOPEROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADDOPERERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		GetDlgItem(IDC_EUSERNAME)->SetWindowText(_T(""));
 		GetDlgItem(IDC_EPASSWORD1)->SetWindowText(_T(""));

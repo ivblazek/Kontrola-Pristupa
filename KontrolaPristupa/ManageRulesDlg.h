@@ -32,4 +32,5 @@ public:
 	afx_msg void OnBnClickedBDelete();
 	afx_msg void OnCbnSelchangeCUser();
 	afx_msg void OnCbnSelchangeCDoor();
+	CKontrolaPristupaApp* theApp;
 };

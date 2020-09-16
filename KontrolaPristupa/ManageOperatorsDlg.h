@@ -31,4 +31,5 @@ public:
 	afx_msg void OnBnClickedBDelete();
 	afx_msg void OnBnClickedBExit();
 	CComboBox operatorComboBox;
+	CKontrolaPristupaApp* theApp;
 };

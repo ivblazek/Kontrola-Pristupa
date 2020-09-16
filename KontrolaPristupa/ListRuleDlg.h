@@ -32,4 +32,5 @@ public:
 	void CListRuleDlg::SurnameSort();
 	afx_msg void OnLvnColumnClickRules(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkRules(NMHDR *pNMHDR, LRESULT *pResult);
+	CKontrolaPristupaApp* theApp;
 };

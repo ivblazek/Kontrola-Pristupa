@@ -51,12 +51,6 @@ CKontrolaPristupaApp::CKontrolaPristupaApp()
 	
 }
 
-
-CString CKontrolaPristupaApp::appName;
-CString CKontrolaPristupaApp::activeOperator;
-BOOL CKontrolaPristupaApp::admin;
-CString CKontrolaPristupaApp::dsn;
-
 CString CKontrolaPristupaApp::getAppName()
 {
 	return appName;

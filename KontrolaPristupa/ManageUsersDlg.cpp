@@ -20,7 +20,7 @@ CManageUsersDlg::CManageUsersDlg(CWnd* pParent /*=NULL*/)
 	, m_GroupName(_T(""))
 	, m_CardNo(_T(""))
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CManageUsersDlg::~CManageUsersDlg()
@@ -55,7 +55,7 @@ BOOL CManageUsersDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGEUSERS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_NAME);
@@ -120,14 +120,14 @@ void CManageUsersDlg::OnBnClickedBSave()
 	if (m_Name.IsEmpty() || m_Surname.IsEmpty() || m_GroupName.IsEmpty() || m_CardNo.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
 	if (m_CardNo.GetLength() < 8)
 	{
 		strMessage.LoadString(IDS_SHORTCARDNO);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
@@ -150,12 +150,12 @@ void CManageUsersDlg::OnBnClickedBSave()
 		users.Update();
 
 		strMessage.LoadString(IDS_SAVEUSEROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_SAVEUSERERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (users.IsOpen())
 			users.Close();
@@ -191,7 +191,7 @@ void CManageUsersDlg::OnBnClickedBDelete()
 		users.Delete();
 
 		strMessage.LoadString(IDS_DELUSEROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
@@ -206,7 +206,7 @@ void CManageUsersDlg::OnBnClickedBDelete()
 		else
 			strMessage.LoadString(IDS_DELUSERERR);
 
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (users.IsOpen())
 			users.Close();

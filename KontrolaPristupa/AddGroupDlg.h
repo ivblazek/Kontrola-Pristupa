@@ -25,4 +25,5 @@ public:
 	afx_msg void OnBnClickedBaddgroup();
 	CString m_Name;
 	CString m_Description;
+	CKontrolaPristupaApp* theApp;
 };

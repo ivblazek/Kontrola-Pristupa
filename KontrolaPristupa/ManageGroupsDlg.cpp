@@ -17,7 +17,7 @@ CManageGroupsDlg::CManageGroupsDlg(CWnd* pParent /*=NULL*/)
 	, m_Name(_T(""))
 	, m_Description(_T(""))
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CManageGroupsDlg::~CManageGroupsDlg()
@@ -47,7 +47,7 @@ BOOL CManageGroupsDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGEGROUPS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_GROUPNAME);
@@ -92,7 +92,7 @@ void CManageGroupsDlg::OnBnClickedBSave()
 	if (m_Name.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
@@ -108,12 +108,12 @@ void CManageGroupsDlg::OnBnClickedBSave()
 		groups.Update();
 
 		strMessage.LoadString(IDS_SAVEGROUPOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_SAVEGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (groups.IsOpen())
 			groups.Close();
@@ -145,7 +145,7 @@ void CManageGroupsDlg::OnBnClickedBDelete()
 		groups.Delete();
 
 		strMessage.LoadString(IDS_DELGROUPOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
@@ -156,7 +156,7 @@ void CManageGroupsDlg::OnBnClickedBDelete()
 		else
 			strMessage.LoadString(IDS_DELGROUPERR);
 
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (groups.IsOpen())
 			groups.Close();

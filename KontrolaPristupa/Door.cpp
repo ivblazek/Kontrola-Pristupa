@@ -28,7 +28,7 @@ CDoor::CDoor(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CDoor::GetDefaultConnect()
 {
-	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
+	return _T("ODBC;DSN=") + ((CKontrolaPristupaApp*)AfxGetApp())->getDsn();
 }
 
 CString CDoor::GetDefaultSQL()

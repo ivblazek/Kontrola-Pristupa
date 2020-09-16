@@ -25,4 +25,5 @@ public:
 	CString m_Password1;
 	CString m_Password2;
 	afx_msg void OnBnClickedBchangepassword();
+	CKontrolaPristupaApp* theApp;
 };

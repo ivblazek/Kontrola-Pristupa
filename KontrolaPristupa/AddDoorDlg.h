@@ -25,4 +25,5 @@ public:
 	CString m_Description;
 	CString m_IPAddress;
 	afx_msg void OnBnClickedBAddDoor();
+	CKontrolaPristupaApp* theApp;
 };

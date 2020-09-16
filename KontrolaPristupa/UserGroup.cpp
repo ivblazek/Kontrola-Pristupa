@@ -27,7 +27,7 @@ CUserGroup::CUserGroup(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CUserGroup::GetDefaultConnect()
 {
-	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
+	return _T("ODBC;DSN=") + ((CKontrolaPristupaApp*)AfxGetApp())->getDsn();
 }
 
 CString CUserGroup::GetDefaultSQL()

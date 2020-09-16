@@ -28,7 +28,7 @@ CFilterDlg::CFilterDlg(CString& eventFilter, CWnd* pParent /*=NULL*/)
 	, timeStart(CTime::GetCurrentTime())
 	, timeEnd(CTime::GetCurrentTime())
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CFilterDlg::~CFilterDlg()
@@ -68,7 +68,7 @@ BOOL CFilterDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_FILTER);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_DOOR);
@@ -230,7 +230,7 @@ void CFilterDlg::OnCbnSelchangeCnamef()
 	{
 		CString strMessage;
 		strMessage.LoadString(IDS_USERGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		groupComboBox.SetCurSel(-1);
 	}
 }
@@ -243,7 +243,7 @@ void CFilterDlg::OnCbnSelchangeCgroupf()
 	{
 		CString strMessage;
 		strMessage.LoadString(IDS_USERGROUPERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		nameComboBox.SetCurSel(-1);
 	}
 }

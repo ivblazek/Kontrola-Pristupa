@@ -16,7 +16,7 @@ IMPLEMENT_DYNAMIC(CListUserDlg, CDialogEx)
 CListUserDlg::CListUserDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_LISTUSER, pParent)
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CListUserDlg::~CListUserDlg()
@@ -42,7 +42,7 @@ BOOL CListUserDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_USERS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 	
 
 	CString strLabel;
@@ -173,9 +173,9 @@ void CListUserDlg::OnNMDblclkUsers(NMHDR *pNMHDR, LRESULT *pResult)
 	
 	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getAdmin())
+		if (theApp->getAdmin())
 		{
-			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			if (theApp->getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
 			{
 				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
 				CManageUsersDlg manageUsersDlg;

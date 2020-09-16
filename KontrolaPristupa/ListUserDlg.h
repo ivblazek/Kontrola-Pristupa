@@ -32,4 +32,5 @@ public:
 	void CListUserDlg::CardSort();
 	afx_msg void OnLvnColumnClickUsers(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkUsers(NMHDR *pNMHDR, LRESULT *pResult);
+	CKontrolaPristupaApp* theApp;
 };

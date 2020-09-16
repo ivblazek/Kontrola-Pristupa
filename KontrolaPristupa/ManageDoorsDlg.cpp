@@ -18,7 +18,7 @@ CManageDoorsDlg::CManageDoorsDlg(CWnd* pParent /*=NULL*/)
 	, m_Description(_T(""))
 	, m_IPAddress(_T(""))
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CManageDoorsDlg::~CManageDoorsDlg()
@@ -50,7 +50,7 @@ BOOL CManageDoorsDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_MANAGEDOORS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_NAME);
@@ -98,7 +98,7 @@ void CManageDoorsDlg::OnBnClickedBSave()
 	if (m_Name.IsEmpty() || m_Description.IsEmpty() || m_IPAddress.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
@@ -115,12 +115,12 @@ void CManageDoorsDlg::OnBnClickedBSave()
 		doors.Update();
 
 		strMessage.LoadString(IDS_SAVEDOOROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_SAVEDOORERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (doors.IsOpen())
 			doors.Close();
@@ -152,7 +152,7 @@ void CManageDoorsDlg::OnBnClickedBDelete()
 		doors.Delete();
 
 		strMessage.LoadString(IDS_DELDOOROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
@@ -167,7 +167,7 @@ void CManageDoorsDlg::OnBnClickedBDelete()
 		else
 			strMessage.LoadString(IDS_DELDOORERR);
 
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		if (doors.IsOpen())
 			doors.Close();

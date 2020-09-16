@@ -20,7 +20,7 @@ CAddRuleDlg::CAddRuleDlg(CWnd* pParent /*=NULL*/)
 	, m_User(_T(""))
 	, m_Door(_T(""))
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CAddRuleDlg::~CAddRuleDlg()
@@ -51,7 +51,7 @@ BOOL CAddRuleDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_ADDRULE);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	strText.LoadString(IDS_USER);
@@ -98,7 +98,7 @@ void CAddRuleDlg::OnBnClickedBAddRule()
 	if (m_User.IsEmpty() || m_Door.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
@@ -114,12 +114,12 @@ void CAddRuleDlg::OnBnClickedBAddRule()
 		rules.Update();
 
 		strMessage.LoadString(IDS_ADDRULEOK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADDRULEERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		doorComboBox.SetCurSel(-1);
 		userComboBox.SetCurSel(-1);

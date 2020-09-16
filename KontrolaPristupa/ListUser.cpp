@@ -29,7 +29,7 @@ CListUser::CListUser(CDatabase* pdb)
 // store the password in some other form or use a different user authentication.
 CString CListUser::GetDefaultConnect()
 {
-	return _T("ODBC;DSN=") + CKontrolaPristupaApp::getDsn();
+	return _T("ODBC;DSN=") + ((CKontrolaPristupaApp*)AfxGetApp())->getDsn();
 }
 
 CString CListUser::GetDefaultSQL()

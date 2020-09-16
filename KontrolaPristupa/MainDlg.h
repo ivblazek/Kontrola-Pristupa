@@ -55,4 +55,5 @@ public:
 	afx_msg void OnBnClickedBFilterOff();
 	afx_msg void OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnReportPrint();
+	CKontrolaPristupaApp* theApp;
 };

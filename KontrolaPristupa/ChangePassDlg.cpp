@@ -18,7 +18,7 @@ CChangePassDlg::CChangePassDlg(CWnd* pParent /*=NULL*/)
 	, m_Password1(_T(""))
 	, m_Password2(_T(""))
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CChangePassDlg::~CChangePassDlg()
@@ -45,7 +45,7 @@ BOOL CChangePassDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	SetWindowText(CKontrolaPristupaApp::getAppName());
+	SetWindowText(theApp->getAppName());
 
 	CString strText;
 	strText.LoadString(IDS_OLDPASSWORD);
@@ -74,25 +74,25 @@ void CChangePassDlg::OnBnClickedBchangepassword()
 	if (m_OldPassword.IsEmpty() || m_Password1.IsEmpty() || m_Password2.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
 	if (m_Password1.Compare(m_Password2))
 	{
 		strMessage.LoadString(IDS_PASSMISSMATCH);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
 	COperator oper;
-	oper.m_strFilter.Format(_T("Username = '%s'"), CKontrolaPristupaApp::getActiveOperator());
+	oper.m_strFilter.Format(_T("Username = '%s'"), theApp->getActiveOperator());
 	oper.Open();
 
 	if (oper.m_Password.Compare(m_OldPassword))
 	{
 		strMessage.LoadString(IDS_WRONGPASSWORD);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		oper.Close();
 		return;
 	}

@@ -33,6 +33,8 @@ CMainDlg::CMainDlg(CWnd* pParent /*=NULL*/)
 	EnableActiveAccessibility();
 #endif
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CMainDlg::~CMainDlg()
@@ -93,7 +95,7 @@ BOOL CMainDlg::OnInitDialog()
 		}
 	}
 
-	SetWindowText(CKontrolaPristupaApp::getAppName());
+	SetWindowText(theApp->getAppName());
 	ModifyStyleEx(WS_EX_TOOLWINDOW, WS_EX_APPWINDOW);
 
 	CString strText;
@@ -403,7 +405,7 @@ void CMainDlg::OnPrint(CDC *pDC, CPrintInfo* pInfo)
 	if(sortPrint.IsEmpty())
 		sortPrint = "[DateTime] DESC";
 	
-	strItem.Format(_T("Report by: %s"), CKontrolaPristupaApp::getActiveOperator());
+	strItem.Format(_T("Report by: %s"), theApp->getActiveOperator());
 	pDC->TextOut(x * 4, s.cy * 2, strItem); 
 	strItem.Format(_T("Timestamp: %s"), currentTime.Format("%d.%m.%Y. - %T"));
 	pDC->TextOut(x * 60, s.cy * 2, strItem);
@@ -455,7 +457,7 @@ void CMainDlg::OnPrint(CDC *pDC, CPrintInfo* pInfo)
 				pDC->StartPage();
 				y = s.cy * 4;
 
-				strItem.Format(_T("Report by: %s"), CKontrolaPristupaApp::getActiveOperator());
+				strItem.Format(_T("Report by: %s"), theApp->getActiveOperator());
 				pDC->TextOut(x * 4, s.cy * 2, strItem);
 				strItem.Format(_T("Timestamp: %s"), currentTime.Format("%d.%m.%Y. - %T"));
 				pDC->TextOut(x * 60, s.cy * 2, strItem);

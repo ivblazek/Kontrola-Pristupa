@@ -15,7 +15,7 @@ IMPLEMENT_DYNAMIC(CListOperatorDlg, CDialogEx)
 CListOperatorDlg::CListOperatorDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_LISTOPERATOR, pParent)
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CListOperatorDlg::~CListOperatorDlg()
@@ -41,7 +41,7 @@ BOOL CListOperatorDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_OPERATORS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	CString strLabel;
@@ -76,7 +76,7 @@ void CListOperatorDlg::PopulateListCtrl()
 
 		itemNo = lstCtrl.InsertItem(0, strItem);
 		lstCtrl.SetItemText(itemNo, 1, opers.m_Username);
-		if (CKontrolaPristupaApp::getAdmin())
+		if (theApp->getAdmin())
 		{
 			if (opers.m_IsAdmin == 1)
 				strItem = "Admin";
@@ -150,9 +150,9 @@ void CListOperatorDlg::OnNMDblclkOperators(NMHDR *pNMHDR, LRESULT *pResult)
 
 	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getAdmin())
+		if (theApp->getAdmin())
 		{
-			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			if (theApp->getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
 			{
 				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
 				CManageOperatorsDlg manageOperatorsDlg;

@@ -30,6 +30,6 @@ public:
 	long selectedID;
 	afx_msg void OnBnClickedBSave();
 	afx_msg void OnBnClickedBCancel();
-	
 	afx_msg void OnBnClickedBDelete();
+	CKontrolaPristupaApp* theApp;
 };

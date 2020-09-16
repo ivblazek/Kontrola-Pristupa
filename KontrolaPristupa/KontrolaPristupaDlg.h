@@ -33,6 +33,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedBLogin();
+	CKontrolaPristupaApp* theApp;
 };
 
 class CAboutDlg : public CDialogEx

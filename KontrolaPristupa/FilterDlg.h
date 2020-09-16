@@ -40,4 +40,5 @@ public:
 	CTime timeStart;
 	CTime timeEnd;
 	CString& eventFilter;
+	CKontrolaPristupaApp* theApp;
 };

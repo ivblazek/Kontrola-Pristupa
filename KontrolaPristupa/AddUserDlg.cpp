@@ -20,7 +20,7 @@ CAddUserDlg::CAddUserDlg(CWnd* pParent /*=NULL*/)
 	, m_GroupName(_T(""))
 	, m_CardNo(_T(""))
 {
-	
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CAddUserDlg::~CAddUserDlg()
@@ -56,7 +56,7 @@ BOOL CAddUserDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_ADDUSER);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 	
 	
 	strText.LoadString(IDS_NAME);
@@ -101,14 +101,14 @@ void CAddUserDlg::OnBnClickedBadduser()
 	if (m_Name.IsEmpty() || m_Surname.IsEmpty() || m_GroupName.IsEmpty() || m_CardNo.IsEmpty())
 	{
 		strMessage.LoadString(IDS_EMPTYFIELDS);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}
 
 	if (m_CardNo.GetLength() < 8)
 	{
 		strMessage.LoadString(IDS_SHORTCARDNO);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 		return;
 	}		
 
@@ -130,12 +130,12 @@ void CAddUserDlg::OnBnClickedBadduser()
 		users.Update();
 
 		strMessage.LoadString(IDS_ADDUSEROK);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK);
 	}
 	catch (CDBException* ex)
 	{
 		strMessage.LoadString(IDS_ADDUSERERR);
-		MessageBox(strMessage, CKontrolaPristupaApp::getAppName(), MB_OK | MB_ICONERROR);
+		MessageBox(strMessage, theApp->getAppName(), MB_OK | MB_ICONERROR);
 
 		GetDlgItem(IDC_ENAME)->SetWindowText(_T(""));
 		GetDlgItem(IDC_ESURNAME)->SetWindowText(_T(""));

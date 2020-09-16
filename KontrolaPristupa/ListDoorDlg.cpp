@@ -16,7 +16,7 @@ IMPLEMENT_DYNAMIC(CListDoorDlg, CDialogEx)
 CListDoorDlg::CListDoorDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_LISTDOOR, pParent)
 {
-
+	theApp = (CKontrolaPristupaApp*)AfxGetApp();
 }
 
 CListDoorDlg::~CListDoorDlg()
@@ -42,7 +42,7 @@ BOOL CListDoorDlg::OnInitDialog()
 	CString strText;
 	strText.LoadString(IDS_DOORS);
 
-	SetWindowText(CKontrolaPristupaApp::getAppName() + " - " + strText);
+	SetWindowText(theApp->getAppName() + " - " + strText);
 
 
 	CString strLabel;
@@ -160,9 +160,9 @@ void CListDoorDlg::OnNMDblclkDoors(NMHDR *pNMHDR, LRESULT *pResult)
 
 	if (pNMItemActivate->iItem != -1)
 	{
-		if (CKontrolaPristupaApp::getAdmin())
+		if (theApp->getAdmin())
 		{
-			if (CKontrolaPristupaApp::getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
+			if (theApp->getActiveOperator().Compare(lstCtrl.GetItemText(pNMItemActivate->iItem, 1)))
 			{
 				CString selectedID = lstCtrl.GetItemText(pNMItemActivate->iItem, 0);
 				CManageDoorsDlg manageDoorsDlg;

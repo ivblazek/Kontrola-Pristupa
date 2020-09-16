@@ -29,4 +29,5 @@ public:
 	CString m_CardNo;
 	afx_msg void OnBnClickedBadduser();
 	CComboBox groupComboBox;
+	CKontrolaPristupaApp* theApp;
 };

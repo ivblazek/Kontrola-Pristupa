@@ -31,4 +31,5 @@ public:
 	void CListDoorDlg::IpSort();
 	afx_msg void OnLvnColumnClickDoors(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkDoors(NMHDR *pNMHDR, LRESULT *pResult);
+	CKontrolaPristupaApp* theApp;
 };
