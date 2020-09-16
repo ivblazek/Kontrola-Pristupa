@@ -60,6 +60,9 @@ BOOL CListUserDlg::OnInitDialog()
 	lstCtrl.InsertColumn(4, strLabel, LVCFMT_LEFT, 100);
 
 	sortData = "[ID] DESC";
+	sortAsc = TRUE;
+	sortBy = 1;
+
 	PopulateListCtrl();	
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -94,42 +97,97 @@ void CListUserDlg::PopulateListCtrl()
 
 void CListUserDlg::IdSort()
 {
-	if (sortData.Compare(_T("[ID] DESC")))
-		sortData = "[ID] DESC";
-	else
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[ID] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[ID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CListUserDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[Name] DESC, [Surname] DESC")))
-		sortData = "[Name] DESC, [Surname] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Name] ASC, [Surname] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Name] DESC, [Surname] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListUserDlg::SurnameSort()
 {
-	if (sortData.Compare(_T("[Surname] DESC, [Name] DESC")))
-		sortData = "[Surname] DESC, [Name] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Surname] ASC, [Name] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Surname] DESC, [Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListUserDlg::GroupSort()
 {
-	if (sortData.Compare(_T("[GroupName] DESC, [Surname] DESC, [Name] DESC")))
-		sortData = "[GroupName] DESC, [Surname] DESC, [Name] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[GroupName] ASC, [Surname] ASC, [Name] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[GroupName] DESC, [Surname] DESC, [Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 void CListUserDlg::CardSort()
 {
-	if (sortData.Compare(_T("[CardNo] DESC")))
-		sortData = "[CardNo] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[CardNo] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[CardNo] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 // CListUserDlg message handlers

@@ -27,6 +27,8 @@ protected:
 public:
 	CString eventFilter;
 	CString sortData;
+	int sortBy;
+	BOOL sortAsc;
 	void CMainDlg::PopulateListCtrl();
 	void CMainDlg::DoorSort();
 	void CMainDlg::StatusSort();

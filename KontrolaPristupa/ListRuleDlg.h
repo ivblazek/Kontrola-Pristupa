@@ -24,6 +24,8 @@ protected:
 public:
 	CListCtrl lstCtrl;
 	CString sortData;
+	int sortBy;
+	BOOL sortAsc;
 	void CListRuleDlg::PopulateListCtrl();
 	void CListRuleDlg::DoorIdSort();
 	void CListRuleDlg::DoorNameSort();

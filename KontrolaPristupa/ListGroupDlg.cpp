@@ -56,6 +56,9 @@ BOOL CListGroupDlg::OnInitDialog()
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 300);
 
 	sortData = "[ID] DESC";
+	sortAsc = TRUE;
+	sortBy = 1;
+
 	PopulateListCtrl();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -87,26 +90,59 @@ void CListGroupDlg::PopulateListCtrl()
 
 void CListGroupDlg::IdSort()
 {
-	if (sortData.Compare(_T("[ID] DESC")))
-		sortData = "[ID] DESC";
-	else
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[ID] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[ID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CListGroupDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[Name] DESC")))
-		sortData = "[Name] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Name] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListGroupDlg::RoleSort()
 {
-	if (sortData.Compare(_T("[Description] DESC")))
-		sortData = "[Description] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Description] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Description] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 // CListGroupDlg message handlers

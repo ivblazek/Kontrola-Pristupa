@@ -178,50 +178,116 @@ void CMainDlg::PopulateListCtrl()
 
 void CMainDlg::DoorSort()
 {
-	if (sortData.Compare(_T("[Door Name] DESC, [DateTime] ASC")))
-		sortData = "[Door Name] DESC, [DateTime] ASC";
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
+		sortData = "[Door Name] ASC";
+		sortAsc = FALSE;
+	}
 	else
-		sortData = "[Door Name] ASC, [DateTime] ASC";
+	{
+		sortData = "[Door Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CMainDlg::StatusSort()
 {
-	if (sortData.Compare(_T("[Door Opened] ASC, [DateTime] ASC")))
-		sortData = "[Door Opened] ASC, [DateTime] ASC";
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
+		sortData = "[Door Opened] ASC";
+		sortAsc = FALSE;
+	}
 	else
-		sortData = "[Door Opened] DESC, [DateTime] ASC";
+	{
+		sortData = "[Door Opened] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CMainDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[User Name] DESC, [Surname] DESC, [DateTime] ASC")))
-		sortData = "[User Name] DESC, [Surname] DESC, [DateTime] ASC";
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
+		sortData = "[User Name] ASC, [Surname] ASC";
+		sortAsc = FALSE;
+	}
 	else
-		sortData = "[User Name] ASC, [Surname] ASC, [DateTime] ASC";
+	{
+		sortData = "[User Name] DESC, [Surname] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 void CMainDlg::SurnameSort()
 {
-	if (sortData.Compare(_T("[Surname] DESC, [User Name] DESC, [DateTime] ASC")))
-		sortData = "[Surname] DESC, [User Name] DESC, [DateTime] ASC";
+	if (sortBy != 4)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
+		sortData = "[Surname] ASC, [User Name] ASC";
+		sortAsc = FALSE;
+	}
 	else
-		sortData = "[Surname] ASC, [User Name] ASC, [DateTime] ASC";
+	{
+		sortData = "[Surname] DESC, [User Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 4;
 }
 
 void CMainDlg::GroupSort()
 {
-	if (sortData.Compare(_T("[Group Name] DESC, [DateTime] ASC")))
-		sortData = "[Group Name] DESC, [DateTime] ASC";
+	if (sortBy != 5)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
+		sortData = "[Group Name] ASC";
+		sortAsc = FALSE;
+	}
 	else
-		sortData = "[Group Name] ASC, [DateTime] ASC";
+	{
+		sortData = "[Group Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 5;
 }
 
 void CMainDlg::DatetimeSort()
 {
-	if (sortData.Compare(_T("[DateTime] ASC")))
+	if (sortBy != 6)
+		sortAsc = TRUE;
+
+	if (sortAsc)
+	{
 		sortData = "[DateTime] ASC";
+		sortAsc = FALSE;
+	}
 	else
+	{
 		sortData = "[DateTime] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 6;
 }
 
 // CMainDlg message handlers
@@ -348,18 +414,23 @@ void CMainDlg::OnLvnColumnClickEvents(NMHDR *pNMHDR, LRESULT *pResult)
 	{
 		case 0:
 			DoorSort();
+			sortData += ", [DateTime]";
 			break;
 		case 1:
 			StatusSort();
+			sortData += ", [DateTime]";
 			break;
 		case 2:
 			UsernameSort();
+			sortData += ", [DateTime]";
 			break;
 		case 3:
 			SurnameSort();
+			sortData += ", [DateTime]";
 			break;
 		case 4:
 			GroupSort();
+			sortData += ", [DateTime]";
 			break;
 		case 5:
 			DatetimeSort();

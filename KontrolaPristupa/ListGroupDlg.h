@@ -24,6 +24,8 @@ protected:
 public:
 	CListCtrl lstCtrl;
 	CString sortData;
+	int sortBy;
+	BOOL sortAsc;
 	void CListGroupDlg::PopulateListCtrl();
 	void CListGroupDlg::IdSort();
 	void CListGroupDlg::UsernameSort();

@@ -60,6 +60,9 @@ BOOL CListRuleDlg::OnInitDialog()
 	lstCtrl.InsertColumn(4, strLabel, LVCFMT_LEFT, 100);
 
 	sortData = "[DoorID] DESC, [UserID] DESC";
+	sortAsc = TRUE;
+	sortBy = 1;
+
 	PopulateListCtrl();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -94,42 +97,97 @@ void CListRuleDlg::PopulateListCtrl()
 
 void CListRuleDlg::DoorIdSort()
 {
-	if (sortData.Compare(_T("[DoorID] DESC, [UserID] DESC")))
-		sortData = "[DoorID] DESC, [UserID] DESC";
-	else
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[DoorID] ASC, [UserID] DESC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[DoorID] DESC, [UserID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CListRuleDlg::DoorNameSort()
 {
-	if (sortData.Compare(_T("[DoorName] DESC, [UserID] DESC")))
-		sortData = "[DoorName] DESC, [UserID] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[DoorName] ASC, [UserID] DESC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[DoorName] DESC, [UserID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListRuleDlg::UserIdSort()
 {
-	if (sortData.Compare(_T("[UserID] DESC, [DoorID] DESC")))
-		sortData = "[UserID] DESC, [DoorID] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[UserID] ASC, [DoorID] DESC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[UserID] DESC, [DoorID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 void CListRuleDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[Name] DESC, [Surname] DESC")))
-		sortData = "[Name] DESC, [Surname] DESC";
-	else
+	if (sortBy != 4)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Name] ASC, [Surname] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Name] DESC, [Surname] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 4;
 }
 
 void CListRuleDlg::SurnameSort()
 {
-	if (sortData.Compare(_T("[Surname] DESC, [Name] DESC")))
-		sortData = "[Surname] DESC, [Name] DESC";
-	else
+	if (sortBy != 5)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Surname] ASC, [Name] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Surname] DESC, [Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 5;
 }
 
 // CListRuleDlg message handlers

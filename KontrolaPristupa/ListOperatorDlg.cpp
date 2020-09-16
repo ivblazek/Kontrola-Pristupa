@@ -55,6 +55,9 @@ BOOL CListOperatorDlg::OnInitDialog()
 	lstCtrl.InsertColumn(2, strLabel, LVCFMT_LEFT, 100);
 
 	sortData = "[ID] DESC";
+	sortAsc = TRUE;
+	sortBy = 1;
+
 	PopulateListCtrl();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -93,26 +96,59 @@ void CListOperatorDlg::PopulateListCtrl()
 
 void CListOperatorDlg::IdSort()
 {
-	if (sortData.Compare(_T("[ID] DESC")))
-		sortData = "[ID] DESC";
-	else
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[ID] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[ID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CListOperatorDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[Username] DESC")))
-		sortData = "[Username] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Username] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Username] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListOperatorDlg::RoleSort()
 {
-	if (sortData.Compare(_T("[IsAdmin] DESC")))
-		sortData = "[IsAdmin] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[IsAdmin] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[IsAdmin] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 // CListOperatorDlg message handlers

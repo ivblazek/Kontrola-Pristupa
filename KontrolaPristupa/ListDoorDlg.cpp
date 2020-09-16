@@ -58,6 +58,9 @@ BOOL CListDoorDlg::OnInitDialog()
 	lstCtrl.InsertColumn(3, strLabel, LVCFMT_LEFT, 100);
 
 	sortData = "[ID] DESC";
+	sortAsc = TRUE;
+	sortBy = 1;
+
 	PopulateListCtrl();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -92,34 +95,78 @@ void CListDoorDlg::PopulateListCtrl()
 
 void CListDoorDlg::IdSort()
 {
-	if (sortData.Compare(_T("[ID] DESC")))
-		sortData = "[ID] DESC";
-	else
+	if (sortBy != 1)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[ID] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[ID] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 1;
 }
 
 void CListDoorDlg::UsernameSort()
 {
-	if (sortData.Compare(_T("[Name] DESC")))
-		sortData = "[Name] DESC";
-	else
+	if (sortBy != 2)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Name] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Name] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 2;
 }
 
 void CListDoorDlg::RoleSort()
 {
-	if (sortData.Compare(_T("[Description] DESC")))
-		sortData = "[Description] DESC";
-	else
+	if (sortBy != 3)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[Description] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[Description] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 3;
 }
 
 void CListDoorDlg::IpSort()
 {
-	if (sortData.Compare(_T("[IP address] DESC")))
-		sortData = "[IP address] DESC";
-	else
+	if (sortBy != 4)
+		sortAsc = FALSE;
+
+	if (sortAsc)
+	{
 		sortData = "[IP address] ASC";
+		sortAsc = FALSE;
+	}
+	else
+	{
+		sortData = "[IP address] DESC";
+		sortAsc = TRUE;
+	}
+
+	sortBy = 4;
 }
 
 // CListDoorDlg message handlers
