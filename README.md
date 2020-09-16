@@ -1,7 +1,7 @@
 # Kontrola Pristupa - Seminarski rad NWP 2020
 
 ## Aplikacija za administraciju
-#### Aplikacija služi za pregled i uređivanje baze podataka koja služi za Kontrolu Pristupa
+#### Aplikacija služi za pregled događaja te za uređivanje korisnika, grupa, pravila, vrata i operatera unutar baze podataka koja služi za Kontrolu Pristupa (događaje kreira zaseban uređaj za kontrolu pristupa)
 #### Aplikacijom upravljaju Operateri kojima je dodijeljeno korisničko ime i lozinka a podjeljeni su na obične korisnike i administratore
 - Otvaranjem aplikacije potrebno se prijaviti sa korisničkim podatcim "admin" "admin" za Administratora ili "user" "user" za običnog korisnika
 - U glavnom prozoru nakon Login-a nalaze se svi događaji, prikaz najnovijih događaja ostvaruje se pritiskom na tipku "Refresh"
@@ -11,7 +11,7 @@
 - Pregleda Korisnika, Grupa, Pravila, Vrata i Operatera vrši se pritiskom na odgovarajuću kontrolu npr. za pregled Korisnika "User->List Users"
 - Uređivanje ili brisanje Korisnika, Grupa, Pravila, Vrata i Operatera vrši se dvostrukim klikom miša na željenu stavku unutar prozora u kojem su izlistani (samo administrator)
 - Promjena lozinke vrši se pritiskom na kontrolu "Operator->Change Password"
-- U slučaju da kod prijave 3 puta upišemo krivu lozinku više se nije moguće prijavit, potrebno je da admin ponovno omogući korisniku prijavu tako što će otvorit prozor "Operator->List Operators" i kliknuti na željenog koisnika te na gumb "Unlock"
+- U slučaju da kod prijave 3 puta upišemo krivu lozinku više se nije moguće prijavit, potrebno je da administrator ponovno omogući korisniku prijavu tako što će otvorit prozor "Operator->List Operators" i kliknuti na željenog koisnika te na gumb "Unlock"
 - Moguće je i resetirati lozinku za korisnike, potrebno je otvoriti prozor "Operator->List Operators" i kliknuti na željenog koisnika te na gumb "Reset Password", nakon toga lozinka je "defaultpassword123"
 - Administrator može dodijeliti administratorsko pravo i ukloniti ga otvoranjem prozora "Operator->List Operators" i klikom na željenog koisnika te na gumb "Add Admin" odnosno "Remove Admin"
 - Pritiskom na "Logout" odjavljujemo se ali ne zatvaramo aplikaciju.
